@@ -1,6 +1,6 @@
 #include <iostream>
 #include <raylib.h>
-#include "../include/Game.hpp"
+#include <Game.hpp>
 
 int main()
 {

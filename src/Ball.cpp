@@ -1,4 +1,4 @@
-#include "../include/Ball.hpp"
+#include <Ball.hpp>
 #include <raylib.h>
 #include <iostream>
 

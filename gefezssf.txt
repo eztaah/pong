@@ -1,7 +1,0 @@
-/*
--> C:/raylib/w64devkit/bin/mingw32-make.exe RAYLIB_PATH=C:/raylib/raylib PROJECT_NAME=debug1 OBJS=src/*.cpp BUILD_MODE=DEBUG
--> .\debug1.exe
-
--> C:/raylib/w64devkit/bin/mingw32-make.exe RAYLIB_PATH=C:/raylib/raylib PROJECT_NAME=debug4 OBJS=src/*.cpp BUILD_MODE=DEBUG
--> .\debug2.exe
-*/

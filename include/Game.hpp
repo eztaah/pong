@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Ball.hpp"
-#include "Paddle.hpp"
+#include <Ball.hpp>
+#include <Paddle.hpp>
 
 class Game
 {

@@ -9,6 +9,8 @@ class Game
         Game();
         void Draw();
         void Update();
+        
+        void ManageCollisionBallWall();
 
     private:
         Ball ball;

@@ -12,7 +12,7 @@ Paddle::Paddle()
     midpoint.x = position.x + width / 2;
     midpoint.y = position.y + height / 2;
 }
- 
+
 
 void Paddle::Update()
 {
@@ -31,4 +31,11 @@ void Paddle::Update()
 void Paddle::Draw()
 {
     DrawRectangle(position.x, position.y, width, height, BLUE);
+}
+
+
+// Encapsulation
+Rectangle Paddle::GetRectangle()
+{
+    return {position.x, position.y, width, height};
 }

@@ -1,19 +1,25 @@
 #pragma once
-#include "raylib.h"
+#include <raylib.h>
 
 class Ball
 {
 public:
     Ball();
-    void Draw();
     void Update();
+    void Draw();
 
-    Vector2 position;
-    Vector2 midpoint;
-    Vector2 speed;
-    int width;
-    int height;
+    // Encapsulation
+    Rectangle GetRectangle();
+    Vector2 GetSpeed();
+    void SetXPosition(float x);
+    void SetYPosition(float y);
+    void SetXSpeed(float x);
+    void SetYSpeed(float y);
 
 private:
-
+    Vector2 position;
+    Vector2 speed;
+    Vector2 midpoint;
+    float width;
+    float height;
 };

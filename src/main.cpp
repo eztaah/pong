@@ -4,6 +4,8 @@
 
 int main()
 {
+    InitWindow(1366, 768, "PONG");
+    SetWindowState(FLAG_VSYNC_HINT);
     
     Game game = Game();
     
@@ -12,7 +14,6 @@ int main()
         game.Update();
         game.Draw();
     }
-    
     CloseWindow();
     return 0;
 }

@@ -7,11 +7,14 @@ class Paddle
         Paddle();
         void Update();
         void Draw();
-        Vector2 position;
-        Vector2 midpoint;
-        float height;
-        float width;
+
+        //Encpasulation
+        Rectangle GetRectangle();
 
     private:
+        Vector2 position;
+        Vector2 midpoint;
         float speed;
+        float height;
+        float width;
 };

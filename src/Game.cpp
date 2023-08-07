@@ -1,4 +1,5 @@
 #include <Game.hpp>
+#include <cmath>
 
 Game::Game()
     : ball(),
@@ -32,15 +33,30 @@ void Game::ManageCollisionBallWall()
     };
 }
 
-void ManageCollisionBallPaddle()
+void Game::ManageCollisionBallPaddle()
 {
-
+    if (CheckCollisionRecs(ball.GetRectangle(), paddle.GetRectangle()))
+    {
+        if (ball.GetSpeed().x < 0) //prevent the ball from boncing inside the paddle
+        {
+            ball.SetXSpeed(-1 * ball.GetSpeed().x);
+            if (ball.GetRectangle().y - paddle.GetRectangle().y < paddle.GetRectangle().height / 2) 
+            {
+                ball.SetYSpeed(-10 * abs(ball.GetRectangle().y - paddle.GetRectangle().y - paddle.GetRectangle().height / 2));
+            }
+            else 
+            {
+                ball.SetYSpeed(10 * abs(ball.GetRectangle().y - paddle.GetRectangle().y - paddle.GetRectangle().height / 2));
+            }
+        };
+    };
 }
 
 
 void Game::Update()
 {
     ManageCollisionBallWall();
+    ManageCollisionBallPaddle();
     ball.Update();
     paddle.Update();
 }

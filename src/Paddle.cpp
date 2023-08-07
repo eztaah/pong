@@ -3,12 +3,12 @@
 
 Paddle::Paddle()
 {
-    position = {GetScreenWidth() - 30.0f, (GetScreenHeight() / 2.0f) - width / 2.0f};
+    position = {30.0f, (GetScreenHeight() / 2.0f) - width / 2.0f};
     speed = 10.0f;
 	width = 10.0f;
 	height = 70.0f;
 }
- 
+
 
 void Paddle::Update()
 {

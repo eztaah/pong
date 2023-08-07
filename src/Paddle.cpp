@@ -1,9 +1,14 @@
 #include "Paddle.hpp"
 #include "raylib.h"
 
-Paddle::Paddle()
+
+Paddle::Paddle() {}
+
+
+Paddle::Paddle(float x)
 {
-    position = { 30.0f, (GetScreenHeight() / 2.0f) - width / 2.0f };
+    position.x = x;
+    position.y = (GetScreenHeight() / 2.0f) - width / 2.0f;
     speed = 10.0f;
     width = 10.0f;
     height = 70.0f;

@@ -5,6 +5,7 @@ class Paddle
 {
     public:
         Paddle();
+        Paddle(float x);
         void Update();
         void Draw();
 

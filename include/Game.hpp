@@ -16,6 +16,7 @@ class Game
     private:
         bool running;
         Ball ball;
-        Paddle paddle;
+        Paddle paddle1;
+        Paddle paddle2;
         double coeff = 0.1;
 };

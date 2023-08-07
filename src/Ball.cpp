@@ -4,10 +4,10 @@
 
 Ball::Ball()
 {
-    position = {GetScreenWidth() / 2.0, GetScreenHeight() / 2.0};
-    speed = {300.0, 300.0};
-    width = 10.0;
-    height = 10.0;
+    position = {GetScreenHeight() / 2.0f, GetScreenHeight() / 2.0f};
+    speed = {300.0f, 300.0f};
+    width = 10.0f;
+    height = 10.0f;
 }
 
 
@@ -22,7 +22,6 @@ void Ball::Draw()
 {
     DrawRectangle(position.x, position.y, width, height, RED);
 }
-
 
 
 // Encapsulation

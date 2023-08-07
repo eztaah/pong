@@ -1,10 +1,4 @@
-<<<<<<< Updated upstream
 #include <Game.hpp>
-
-=======
-#include "../include/Game.hpp"
-#include <iostream>
->>>>>>> Stashed changes
 
 Game::Game()
 {

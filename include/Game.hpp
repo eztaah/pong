@@ -7,12 +7,13 @@ class Game
 {
     public:
         Game();
-        void Draw();
-        void Update();
-        
         void ManageCollisionBallWall();
+        void ManageCollisionBallPaddle();
+        void Update();
+        void Draw();
 
     private:
+        bool running;
         Ball ball;
         Paddle paddle;
 };

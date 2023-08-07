@@ -1,12 +1,40 @@
 #include <Game.hpp>
 
 Game::Game()
+    : ball(),
+      paddle()
 {
-    InitWindow(1366, 768, "PONG");
-    SetWindowState(FLAG_VSYNC_HINT);
+    running = true;
+}
 
-    ball = Ball();
-    paddle = Paddle();
+
+void Game::ManageCollisionBallWall()
+{
+    if (ball.GetRectangle().x < 0.0) 
+    {
+        ball.SetXPosition(0.0);
+        ball.SetXSpeed(-1 * ball.GetSpeed().x);
+    } 
+    else if (ball.GetRectangle().x > GetScreenWidth() - ball.GetRectangle().width) 
+    {
+        ball.SetXPosition(GetScreenWidth() - ball.GetRectangle().width);
+        ball.SetXSpeed(-1 * ball.GetSpeed().x);
+    };
+    if (ball.GetRectangle().y < 0) 
+    {
+        ball.SetYPosition(0.0);
+        ball.SetYSpeed(-1 * ball.GetSpeed().y);
+    }
+    else if (ball.GetRectangle().y > GetScreenHeight() - ball.GetRectangle().height) 
+    {
+        ball.SetYPosition(GetScreenHeight() - ball.GetRectangle().height);
+        ball.SetYSpeed(-1 * ball.GetSpeed().y);
+    };
+}
+
+void ManageCollisionBallPaddle()
+{
+
 }
 
 
@@ -25,24 +53,4 @@ void Game::Draw()
     ball.Draw();
     paddle.Draw();
     EndDrawing();
-}
-
-
-void Game::ManageCollisionBallWall()
-{
-    if (ball.position.x < 0.0) {
-        ball.position.x = 0.0;
-        ball.speed.x *= -1;
-    } else if (ball.position.x > GetScreenWidth() - ball.width) {
-        ball.position.x = GetScreenWidth() - ball.width;
-        ball.speed.x *= -1;
-    };
-    if (ball.position.y < 0) {
-        ball.position.y = 0;
-        ball.speed.y *= -1;
-    }
-    else if (ball.position.y > GetScreenHeight() - ball.height) {
-        ball.position.y = GetScreenHeight() - ball.height;
-        ball.speed.y *= -1;
-    };
 }

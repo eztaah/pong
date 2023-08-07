@@ -7,6 +7,7 @@ class Paddle
         Paddle();
         void Update();
         void Draw();
+        Rectangle GetRectangle();
 
     private:
         Vector2 position;

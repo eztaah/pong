@@ -3,14 +3,10 @@
 
 Paddle::Paddle()
 {
-    position.x = GetScreenWidth() - 30.0;
-    position.y = (GetScreenHeight() / 2.0) - width / 2.0;
-	width = 10;
-	height = 70;
-    speed = 10;
-
-    midpoint.x = position.x + width / 2;
-    midpoint.y = position.y + height / 2;
+    position = { 30.0f, (GetScreenHeight() / 2.0f) - width / 2.0f };
+    speed = 10.0f;
+    width = 10.0f;
+    height = 70.0f;
 }
 
 

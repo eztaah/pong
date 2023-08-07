@@ -13,13 +13,15 @@ void Game::ManageCollisionBallWall()
 {
     if (ball.GetRectangle().x < 0.0) 
     {
-        ball.SetXPosition(0.0);
-        ball.SetXSpeed(-1 * ball.GetSpeed().x);
+        gameOver = true;
+        ClearBackground(BLACK);
+        DrawText("GAME OVER", GetScreenWidth()/2 - 10, GetScreenHeight() / 2 - 10, 50, YELLOW);
     } 
     else if (ball.GetRectangle().x > GetScreenWidth() - ball.GetRectangle().width) 
     {
-        ball.SetXPosition(GetScreenWidth() - ball.GetRectangle().width);
-        ball.SetXSpeed(-1 * ball.GetSpeed().x);
+        gameOver = true;
+        ClearBackground(BLACK);
+        DrawText("GAME OVER", GetScreenWidth() / 2 - 10, GetScreenHeight() / 2 - 10, 50, YELLOW);
     };
     if (ball.GetRectangle().y < 0) 
     {

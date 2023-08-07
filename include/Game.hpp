@@ -11,6 +11,7 @@ class Game
         void ManageCollisionBallPaddle();
         void Update();
         void Draw();
+        bool gameOver = false;
 
     private:
         bool running;

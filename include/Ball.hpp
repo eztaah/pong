@@ -1,5 +1,5 @@
 #pragma once
-#include <raylib.h>
+#include "raylib.h"
 
 class Ball
 {
@@ -9,6 +9,7 @@ public:
     void Update();
 
     Vector2 position;
+    Vector2 midpoint;
     Vector2 speed;
     int width;
     int height;

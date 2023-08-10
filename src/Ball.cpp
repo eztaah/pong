@@ -4,7 +4,7 @@
 
 Ball::Ball()
 {
-    position_ = {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
+    position = {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
     speed = {300.0f, 300.0f};
     width = 10.0f;
     height = 10.0f;
@@ -15,8 +15,6 @@ void Ball::Update()
 {
     position.x += speed.x * GetFrameTime();
     position.y += speed.y * GetFrameTime();
-    midpoint.x = position.x + width / 2;
-    midpoint.y = position.y + height / 2;
 }
 
 
@@ -26,15 +24,37 @@ void Ball::Draw() const
 }
 
 
-// Encapsulation
-Rectangle Ball::GetRectangle() { return {position.x, position.y, width, height}; }
+Rectangle Ball::GetRectangle()
+{
+    return {position.x, position.y, width, height};
+}
 
-Vector2 Ball::GetSpeed() { return speed; }
 
-void Ball::SetXPosition(float x) { position.x = x; }
+Vector2 Ball::GetSpeed() 
+{
+    return speed;
+}
 
-void Ball::SetYPosition(float y) { position.y = y; }
 
-void Ball::SetXSpeed(float x) { speed.x = x; }
+void Ball::SetXPosition(float x_) 
+{
+    position.x = x_;
+}
 
-void Ball::SetYSpeed(float y) { speed.y = y; }
+
+void Ball::SetYPosition(float y_) 
+{
+    position.y = y_;
+}
+
+
+void Ball::SetXSpeed(float x_) 
+{
+    speed.x = x_;
+}
+
+
+void Ball::SetYSpeed(float y_) 
+{
+    speed.y = y_;
+}

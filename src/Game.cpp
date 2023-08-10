@@ -7,13 +7,13 @@ Game::Game()
     ball = Ball();
     paddle1 = Paddle(30.0f);
     paddle2 = Paddle(GetScreenWidth() - 30.0f);
-    gameOver = false;
+    running = true;
 }
 
 
 void Game::Update()
 {
-    if(gameOver) 
+    if(running) 
     {
         ManageCollisionBallWall();
         ManageCollisionBallPaddle();
@@ -32,16 +32,20 @@ void Game::Update()
 
 void Game::Draw()
 {
-    if(gameOver)
+    BeginDrawing();
+    ClearBackground(BLACK);
+
+    paddle1.Draw();
+    paddle2.Draw();
+
+    if(running)
     {
-        BeginDrawing();
-        ClearBackground(BLACK);
         ball.Draw();
-        paddle1.Draw();
-        paddle2.Draw();
-        EndDrawing();
+    } else {
+        DrawText("PRESS SPACE TO RESTART", (GetScreenWidth() / 2.0f) - 280.0f, (GetScreenHeight() / 2.0f) - 10.0f, 40, YELLOW);
     }
 
+    EndDrawing();
 }
 
 
@@ -49,19 +53,15 @@ void Game::ManageCollisionBallWall()
 {
     if (ball.GetRectangle().x < 0.0) 
     {
-        gameOver = true;
-        ClearBackground(BLACK);
-        DrawText("PLAYER 1 WON", GetScreenWidth() / 2 - 10, GetScreenHeight() / 2 - 10, 50, YELLOW);
+        running = false;
     } 
     else if (ball.GetRectangle().x > GetScreenWidth() - ball.GetRectangle().width) 
     {
-        gameOver = true;
-        ClearBackground(BLACK);
-        DrawText("PLAYER 2 WON", GetScreenWidth() / 2 - 10, GetScreenHeight() / 2 - 10, 50, YELLOW);
+        running = false;
     };
     if (ball.GetRectangle().y < 0)
     {
-        ball.SetYPosition(0.0);
+        ball.SetYPosition(0.0f);
         ball.SetYSpeed(-1 * ball.GetSpeed().y);
     }
     else if (ball.GetRectangle().y > GetScreenHeight() - ball.GetRectangle().height) 
@@ -113,13 +113,12 @@ void Game::Restart()
 {
     ball.SetXPosition(GetScreenWidth() / 2.0f);
     ball.SetYPosition(GetScreenHeight() / 2.0f);
-
+    ball.SetXSpeed(300.0f);
+    ball.SetYSpeed(300.0f);
     paddle1.SetXPosition(30.0f);
-    paddle1.SetYPosition((GetScreenHeight() / 2.0f) - paddle1.GetRectangle().height / 2.0f;)
+    paddle1.SetYPosition((GetScreenHeight() / 2.0f) - (paddle1.GetRectangle().height / 2.0f));
+    paddle2.SetXPosition(GetScreenWidth() - 30.0f);
+    paddle2.SetYPosition((GetScreenHeight() / 2.0f) - (paddle1.GetRectangle().height / 2.0f));
 
-        paddle1 = Paddle(30.0f);
-    paddle2 = Paddle(GetScreenWidth() - 30.0f);
-
-
-    gameOver = false;
+    running = true;
 }

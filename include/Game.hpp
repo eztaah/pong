@@ -5,19 +5,19 @@
 
 class Game
 {
-    public:
-        Game();
-        void Update();
-        void Draw();
+public:
+    Game();
+    void Update();
+    void Draw();
 
-    private:
-        void ManageCollisionBallWall();
-        void ManageCollisionBallPaddle();
-        void Restart();
+private:
+    void ManageCollisionBallWall();
+    void ManageCollisionBallPaddle();
+    void Restart();
 
-        Ball ball;
-        Paddle paddle1;
-        Paddle paddle2;
+    Ball ball;
+    Paddle paddle1;
+    Paddle paddle2;
 
-        bool gameOver;
+    bool running;
 };

@@ -5,10 +5,10 @@
 Paddle::Paddle() {}
 
 
-Paddle::Paddle(float x)
+Paddle::Paddle(float x_)
 {
-    position.x = x;
-    position.y = (GetScreenHeight() / 2.0f) - height / 2.0f;
+    position.x = x_;
+    position.y = (GetScreenHeight() / 2.0f) - (height / 2.0f);
     speed = 10.0f;
     width = 10.0f;
     height = 70.0f;
@@ -39,13 +39,13 @@ Rectangle Paddle::GetRectangle()
 }
 
 
-void Paddle::SetXPosition(float x) 
+void Paddle::SetXPosition(float x_) 
 {
-    position.x = x;
+    position.x = x_;
 }
 
 
-void Paddle::SetYPosition(float y)
+void Paddle::SetYPosition(float y_)
 {
-    position.y = y;
+    position.y = y_;
 }

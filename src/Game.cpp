@@ -1,12 +1,47 @@
-#include <Game.hpp>
+#include "game.hpp"
 #include <cmath>
+
 
 Game::Game()
 {
     ball = Ball();
     paddle1 = Paddle(30.0f);
     paddle2 = Paddle(GetScreenWidth() - 30.0f);
-    running = true;
+    gameOver = false;
+}
+
+
+void Game::Update()
+{
+    if(gameOver) 
+    {
+        ManageCollisionBallWall();
+        ManageCollisionBallPaddle();
+        ball.Update();
+        paddle1.Update();
+        paddle2.Update();
+    } 
+    else
+    {
+        if (IsKeyDown(KEY_SPACE)) {
+            Restart();
+        }
+    }
+}
+
+
+void Game::Draw()
+{
+    if(gameOver)
+    {
+        BeginDrawing();
+        ClearBackground(BLACK);
+        ball.Draw();
+        paddle1.Draw();
+        paddle2.Draw();
+        EndDrawing();
+    }
+
 }
 
 
@@ -16,13 +51,13 @@ void Game::ManageCollisionBallWall()
     {
         gameOver = true;
         ClearBackground(BLACK);
-        DrawText("GAME OVER", GetScreenWidth()/2 - 10, GetScreenHeight() / 2 - 10, 50, YELLOW);
+        DrawText("PLAYER 1 WON", GetScreenWidth() / 2 - 10, GetScreenHeight() / 2 - 10, 50, YELLOW);
     } 
     else if (ball.GetRectangle().x > GetScreenWidth() - ball.GetRectangle().width) 
     {
         gameOver = true;
         ClearBackground(BLACK);
-        DrawText("GAME OVER", GetScreenWidth() / 2 - 10, GetScreenHeight() / 2 - 10, 50, YELLOW);
+        DrawText("PLAYER 2 WON", GetScreenWidth() / 2 - 10, GetScreenHeight() / 2 - 10, 50, YELLOW);
     };
     if (ball.GetRectangle().y < 0)
     {
@@ -35,6 +70,7 @@ void Game::ManageCollisionBallWall()
         ball.SetYSpeed(-1 * ball.GetSpeed().y);
     };
 }
+
 
 void Game::ManageCollisionBallPaddle()
 {
@@ -73,22 +109,17 @@ void Game::ManageCollisionBallPaddle()
 }
 
 
-void Game::Update()
+void Game::Restart()
 {
-    ManageCollisionBallWall();
-    ManageCollisionBallPaddle();
-    ball.Update();
-    paddle1.Update();
-    paddle2.Update();
-}
+    ball.SetXPosition(GetScreenWidth() / 2.0f);
+    ball.SetYPosition(GetScreenHeight() / 2.0f);
+
+    paddle1.SetXPosition(30.0f);
+    paddle1.SetYPosition((GetScreenHeight() / 2.0f) - paddle1.GetRectangle().height / 2.0f;)
+
+        paddle1 = Paddle(30.0f);
+    paddle2 = Paddle(GetScreenWidth() - 30.0f);
 
 
-void Game::Draw()
-{
-    BeginDrawing();
-    ClearBackground(BLACK);
-    ball.Draw();
-    paddle1.Draw();
-    paddle2.Draw();
-    EndDrawing();
+    gameOver = false;
 }

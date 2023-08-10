@@ -1,10 +1,10 @@
-#include "Ball.hpp"
-#include "raylib.h"
-#include "iostream"
+#include "ball.hpp"
+#include <raylib.hpp>
+#include <iostream>
 
 Ball::Ball()
 {
-    position = {GetScreenHeight() / 2.0f, GetScreenHeight() / 2.0f};
+    position_ = {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
     speed = {300.0f, 300.0f};
     width = 10.0f;
     height = 10.0f;
@@ -20,7 +20,7 @@ void Ball::Update()
 }
 
 
-void Ball::Draw()
+void Ball::Draw() const
 {
     DrawRectangle(position.x, position.y, width, height, RED);
 }

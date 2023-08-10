@@ -1,5 +1,5 @@
 #pragma once
-#include "raylib.h"
+#include <raylib.hpp>
 
 class Paddle
 {
@@ -7,14 +7,14 @@ class Paddle
         Paddle();
         Paddle(float x);
         void Update();
-        void Draw();
+        void Draw() const;
 
-        //Encpasulation
         Rectangle GetRectangle();
+        void SetXPosition(float x);
+        void SetYPosition(float y);
 
     private:
         Vector2 position;
-        Vector2 midpoint;
         float speed;
         float height;
         float width;

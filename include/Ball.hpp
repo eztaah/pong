@@ -1,14 +1,14 @@
 #pragma once
-#include <raylib.h>
+#include <raylib.hpp>
+
 
 class Ball
 {
 public:
     Ball();
     void Update();
-    void Draw();
+    void Draw() const;
 
-    // Encapsulation
     Rectangle GetRectangle();
     Vector2 GetSpeed();
     void SetXPosition(float x);

@@ -1,6 +1,7 @@
-#include "iostream"
-#include "raylib.h"
-#include "Game.hpp"
+#include "game.hpp"
+#include <raylib.hpp>
+#include <iostream>
+
 
 int main()
 {
@@ -14,7 +15,6 @@ int main()
         game.Update();
         game.Draw();
     }
-
     CloseWindow();
     return 0;
 }

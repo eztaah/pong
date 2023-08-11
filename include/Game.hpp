@@ -20,4 +20,5 @@ private:
     Paddle paddle2;
 
     bool running;
+    int unsigned score;
 };

@@ -1,5 +1,6 @@
 #include "game.hpp"
 #include <cmath>
+#include <string>
 
 
 Game::Game()
@@ -8,6 +9,7 @@ Game::Game()
     paddle1 = Paddle(30.0f);
     paddle2 = Paddle(GetScreenWidth() - 30.0f);
     running = true;
+    score = 0;
 }
 
 
@@ -38,11 +40,14 @@ void Game::Draw()
     paddle1.Draw();
     paddle2.Draw();
 
+    std::string scoreStr = std::to_string(score);   // convert score to a string
+    DrawText(scoreStr.c_str(), 670, 20, 40, WHITE);
+
     if(running)
     {
         ball.Draw();
     } else {
-        DrawText("PRESS SPACE TO RESTART", (GetScreenWidth() / 2.0f) - 280.0f, (GetScreenHeight() / 2.0f) - 10.0f, 40, YELLOW);
+        DrawText("PRESS SPACE TO RESTART", (GetScreenWidth() / 2.0f) - 290.0f, (GetScreenHeight() / 2.0f) - 10.0f, 40, YELLOW);
     }
 
     EndDrawing();
@@ -51,59 +56,50 @@ void Game::Draw()
 
 void Game::ManageCollisionBallWall()
 {
-    if (ball.GetRectangle().x < 0.0) 
+    if (ball.GetRectangle().x < 0.0)
     {
-        running = false;
+        running = false;    // Game over
     } 
     else if (ball.GetRectangle().x > GetScreenWidth() - ball.GetRectangle().width) 
     {
-        running = false;
+        running = false;    // Game over
     };
     if (ball.GetRectangle().y < 0)
     {
-        ball.SetYPosition(0.0f);
-        ball.SetYSpeed(-1 * ball.GetSpeed().y);
+        ball.SetYPosition(0.0f);    // Avoid bugs
+        ball.SetYSpeed(-1 * ball.GetSpeed().y);     // Make the ball bounce
     }
     else if (ball.GetRectangle().y > GetScreenHeight() - ball.GetRectangle().height) 
     {
-        ball.SetYPosition(GetScreenHeight() - ball.GetRectangle().height);
-        ball.SetYSpeed(-1 * ball.GetSpeed().y);
+        ball.SetYPosition(GetScreenHeight() - ball.GetRectangle().height);  // Avoid bugs
+        ball.SetYSpeed(-1 * ball.GetSpeed().y);     // Make the ball bounce
     };
 }
 
 
 void Game::ManageCollisionBallPaddle()
 {
-    // paddle 1
-    if (ball.GetSpeed().x < 0) //prevent the ball from boncing inside the paddle
+    // Paddle 1 collisions
+    if (ball.GetSpeed().x < 0)      //prevent the ball from boncing inside the paddle
     {
         if (CheckCollisionRecs(ball.GetRectangle(), paddle1.GetRectangle()))
         {
-            ball.SetXSpeed(-1 * ball.GetSpeed().x);
-            if (ball.GetRectangle().y - paddle1.GetRectangle().y < paddle1.GetRectangle().height / 2) 
-            {
-                ball.SetYSpeed(-10 * abs(ball.GetRectangle().y - paddle1.GetRectangle().y - paddle1.GetRectangle().height / 2));
-            }
-            else 
-            {
-                ball.SetYSpeed(10 * abs(ball.GetRectangle().y - paddle1.GetRectangle().y - paddle1.GetRectangle().height / 2));
-            }
+            ball.SetXSpeed(-1 * ball.GetSpeed().x);     // Make the ball bounce
+            score++;
+            ball.SetXSpeed(ball.GetSpeed().x + 100.0f);     // Increase the speed of the ball
+            ball.SetYSpeed(ball.GetSpeed().y + 100.0f);
         };
     }
-    // paddle 2
+
+    // Paddle 2 collision
     else 
     {
         if (CheckCollisionRecs(ball.GetRectangle(), paddle2.GetRectangle()))
         {
-            ball.SetXSpeed(-1 * ball.GetSpeed().x);
-            if (ball.GetRectangle().y - paddle2.GetRectangle().y < paddle2.GetRectangle().height / 2) 
-            {
-                ball.SetYSpeed(-10 * abs(ball.GetRectangle().y - paddle2.GetRectangle().y - paddle2.GetRectangle().height / 2));
-            }
-            else 
-            {
-                ball.SetYSpeed(10 * abs(ball.GetRectangle().y - paddle2.GetRectangle().y - paddle2.GetRectangle().height / 2));
-            }
+            ball.SetXSpeed(-1 * ball.GetSpeed().x);     // Make the ball bounce
+            score++;
+            ball.SetXSpeed(ball.GetSpeed().x - 100.0f);     // Increase the speed of the ball
+            ball.SetYSpeed(ball.GetSpeed().y - 100.0f);
         };
     };
 }
@@ -121,4 +117,5 @@ void Game::Restart()
     paddle2.SetYPosition((GetScreenHeight() / 2.0f) - (paddle1.GetRectangle().height / 2.0f));
 
     running = true;
+    score = 0;
 }

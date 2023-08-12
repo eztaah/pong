@@ -4,7 +4,7 @@
 
 Ball::Ball()
 {
-    position = {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
+    position = {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};     // Place the ball at the center of the screen
     speed = {300.0f, 300.0f};
     width = 10.0f;
     height = 10.0f;
@@ -13,8 +13,8 @@ Ball::Ball()
 
 void Ball::Update()
 {
-    position.x += speed.x * GetFrameTime();
-    position.y += speed.y * GetFrameTime();
+    position.x += speed.x * GetFrameTime();     // Change the position of the ball
+    position.y += speed.y * GetFrameTime();     // " * GetFrameTime() " makes the ball move at the same speed on all computers
 }
 
 

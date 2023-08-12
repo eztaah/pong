@@ -5,9 +5,9 @@
 
 Game::Game()
 {
-    ball = Ball();
-    paddle1 = Paddle(30.0f);
-    paddle2 = Paddle(GetScreenWidth() - 30.0f);
+    ball = Ball();      // Initialize the ball
+    paddle1 = Paddle(30.0f);        // Initialize the left paddle
+    paddle2 = Paddle(GetScreenWidth() - 30.0f);     // Initialize the right paddle
     running = true;
     score = 0;
 }
@@ -25,8 +25,9 @@ void Game::Update()
     } 
     else
     {
-        if (IsKeyDown(KEY_SPACE)) {
-            Restart();
+        if (IsKeyDown(KEY_SPACE))    // If the game is not running and the space key is pressed
+        {
+            Restart();     
         }
     }
 }
@@ -40,8 +41,8 @@ void Game::Draw()
     paddle1.Draw();
     paddle2.Draw();
 
-    std::string scoreStr = std::to_string(score);   // convert score to a string
-    DrawText(scoreStr.c_str(), 670, 20, 40, WHITE);
+    std::string scoreStr = std::to_string(score);   // Convert score to a string
+    DrawText(scoreStr.c_str(), 670, 20, 40, WHITE); 
 
     if(running)
     {
@@ -66,12 +67,12 @@ void Game::ManageCollisionBallWall()
     };
     if (ball.GetRectangle().y < 0)
     {
-        ball.SetYPosition(0.0f);    // Avoid bugs
+        ball.SetYPosition(0.0f);    // Prevent bug when the ball go outside the screen
         ball.SetYSpeed(-1 * ball.GetSpeed().y);     // Make the ball bounce
     }
     else if (ball.GetRectangle().y > GetScreenHeight() - ball.GetRectangle().height) 
     {
-        ball.SetYPosition(GetScreenHeight() - ball.GetRectangle().height);  // Avoid bugs
+        ball.SetYPosition(GetScreenHeight() - ball.GetRectangle().height);  // Prevent bug when the ball go outside the screen
         ball.SetYSpeed(-1 * ball.GetSpeed().y);     // Make the ball bounce
     };
 }

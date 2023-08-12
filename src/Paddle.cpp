@@ -19,11 +19,12 @@ Paddle::Paddle(float x_)
 void Paddle::Update()
 {
     // Handle inputs
-    if (IsKeyDown(KEY_W)) {
-        position.y -= 600.0 * GetFrameTime();
+    if (IsKeyDown(KEY_W))   // Works with QUERTY
+    {
+        position.y -= 600.0 * GetFrameTime();   // If the Z key is pressed, move the paddle to the top
     };
     if (IsKeyDown(KEY_S)) {
-        position.y += 600.0 * GetFrameTime();
+        position.y += 600.0 * GetFrameTime();   // // If the S key is pressed, move the paddle to the bottom
     };
 }
 

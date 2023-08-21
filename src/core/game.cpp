@@ -4,26 +4,51 @@
 
 ///////////////// PUBLIC /////////////////
 Game::Game()
-    : _ball(),
+    : _ball(BLACK),
+      _ghostBall(RED),
       _paddle1(30.0f),
       _paddle2(GetScreenWidth() - 30.0f),
+      _ballsArray(),
       _isGameOver(false),
       _score(0)
-{}
+{
+    // Set initial position for ball and ghost ball
+    _ball.SetPosition({(GetScreenWidth() / 2.0f) - (_ball.GetSize() / 2.0f), (GetScreenHeight() / 2.0f) - (_ball.GetSize() / 2.0f)});
+    _ghostBall.SetPosition({(GetScreenWidth() / 2.0f) - (_ghostBall.GetSize() / 2.0f), (GetScreenHeight() / 2.0f) - (_ghostBall.GetSize() / 2.0f)});
+
+    // Setup the array
+    _ballsArray.push_back(&_ball);
+    _ballsArray.push_back(&_ghostBall);
+
+    // Activate the ball
+    _ball.Activate();
+    _ghostBall.Activate();
+    _ghostBall.SetSpeed({_ball.GetSpeed().x * 10.0f, _ball.GetSpeed().y * 10.0f});
+}
 
 void Game::Update()
 {
-    if(!_isGameOver)    // If the game is running
+    if(!_isGameOver)
     {
-        _HandleInputs();    // Get keys pressed and update paddle1 position
-        _ball.Update();     // Update ball position
+        // Update paddle 1 position
+        _HandleInputs();
 
-        _HandleCollisions();    // Manage collisions between ball-boundary and ball-paddles
+        // Update paddle 2 position
+        if(_paddle2.GetPosition().y + (_paddle2.GetRectangle().height / 2) < _botDefensePosition)
+            _paddle2.MoveDown();
+        if(_paddle2.GetPosition().y + (_paddle2.GetRectangle().height / 2) > _botDefensePosition)
+            _paddle2.MoveUp();
+
+        // Update balls position
+        for(Ball* elt : _ballsArray)
+            elt->Update();
+
+        _HandleCollisions();
     } 
-    else    // If the game is not running
+    else
     {
-        if (IsKeyDown(KEY_SPACE))    // If the game is not running and the space key is pressed
-            _Restart();   // Setup a new game
+        if (IsKeyDown(KEY_SPACE))
+            _Restart();
     }
 }
 
@@ -37,6 +62,7 @@ void Game::Render()
     _paddle2.Render();
     if(!_isGameOver)
         _ball.Render();
+    _ghostBall.Render();
 
     // === Draw score ===
     std::string scoreStr = std::to_string(_score);   // Convert score to a string
@@ -62,17 +88,20 @@ void Game::_HandleInputs()
 
 void Game::_HandleCollisions()
 {
-    // === Ball-Border collisions ===
-    if(_ball.GetRectangle().y < 0.0f)
-        _ball.HandleBounceTop();
-    else if(_ball.GetRectangle().y > GetScreenHeight() - _ball.GetRectangle().height) 
-        _ball.HandleBounceBottom();
+    // === Balls-Vertical-Border collisions ===
+    for(Ball* elt : _ballsArray)
+    {
+        if(elt->GetRectangle().y < 0.0f)
+            elt->HandleBounceTop();
+        else if(elt->GetRectangle().y > GetScreenHeight() - elt->GetRectangle().height) 
+            elt->HandleBounceBottom();
+    }
 
+    // === Ball-Horizontal-Border collisions ===
     if(_ball.GetRectangle().x <= 0.0f)
         _isGameOver = true;
     else if(_ball.GetRectangle().x >= GetScreenWidth() - 30.0f - _ball.GetRectangle().width)
         _ball.HandleBounceRight();    // Replace the bot logic
-
 
     // === Ball-Paddle1 collisions ===
     if (_ball.GetSpeed().x < 0.0f)     // Here the ball will into the paddle1
@@ -81,23 +110,26 @@ void Game::_HandleCollisions()
         {
             _ball.HandleBounceLeft();
             _score++;
+
+            // Ghost ball
+            _ghostBall.SetPosition(_ball.GetPosition());
+            _ghostBall.Activate();
+            _ghostBall.SetSpeed({_ball.GetSpeed().x * 10, _ball.GetSpeed().y * 10});
         };
     }
 
-    // === Ball-Paddle2 collisions ===                  // Commented because this paddle does not move right now
-    // else    // Here the ball will into the paddle2
-    // {
-    //     if (CheckCollisionRecs(_ball.GetRectangle(), _paddle2.GetRectangle()))
-    //     {
-    //         _ball.RightBounce();      
-    //         _score++;
-    //     };
-    // };
+    // === Ghost-ball right wall collision
+    if(_ghostBall.GetPosition().x >= GetScreenWidth() - _ghostBall.GetSize() - 30.0f)
+    {
+        _ghostBall.Desactivate();
+        _botDefensePosition = _ghostBall.GetPosition().y + (_ghostBall.GetSize() / 2);
+    }
 }
 
 void Game::_Restart()
 {
     _ball.Reset();
+    _ghostBall.Reset();
     _paddle1.Reset(30.0f);
     _paddle2.Reset(GetScreenWidth() - 30.0f);
 

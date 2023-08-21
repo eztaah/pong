@@ -1,11 +1,12 @@
 #include "paddle.hpp"
+#include "globals.hpp"
 #include <raylib.hpp>
 
 
 Paddle::Paddle(const float positionX)
-    : _size({10.0f, 100.0f}),
-      _position({positionX, (GetScreenHeight() / 2.0f) - (_size.y / 2.0f)}),
-      _speed(900.0f)
+    : _size({GetReelValue(10.0f), GetReelValue(100.0f)}),
+      _position({MARGIN_X + positionX, MARGIN_Y + (GAME_HEIGHT / 2.0f) - (_size.y / 2.0f)}),
+      _speed(GetReelValue(900.0f))
 {}
 
 
@@ -25,7 +26,8 @@ Rectangle Paddle::GetRectangle() const {
 
 // === Mutators ===
 void Paddle::SetPosition(const Vector2& newPosition) {
-    _position = newPosition;
+    _position.x = MARGIN_X + newPosition.x;
+    _position.y = MARGIN_Y + newPosition.y;
 }
 
 void Paddle::MoveUp() {
@@ -42,8 +44,9 @@ void Paddle::SetSpeed(const float newSpeed) {
 
 void Paddle::Reset(const float positionX)
 {
-    _position = {positionX, (GetScreenHeight() / 2.0f) - (_size.y / 2.0f)};
-    _speed = 900.0f;
+    _size = {GetReelValue(10.0f), GetReelValue(100.0f)};
+    _position = {MARGIN_X + (positionX), MARGIN_Y + (GAME_HEIGHT / 2.0f) - (_size.y / 2.0f)};
+    _speed = GetReelValue(900.0f);
 }
 
 

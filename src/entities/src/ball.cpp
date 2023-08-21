@@ -1,3 +1,4 @@
+#include "globals.hpp"
 #include "ball.hpp"
 #include <raylib.hpp>
 #include <string>
@@ -5,9 +6,9 @@
 
 Ball::Ball(const Color& color)
     : _isActive(false),
-      _size(14.0f),
-      _position({0.0f, 0.0f}),
-      _speed({300.0f, 200.0f}),
+      _size(GetReelValue(14.0f)),
+      _position({MARGIN_X + 0.0f, MARGIN_Y + 0.0f}),
+      _speed({GetReelValue(300.0f), GetReelValue(200.0f)}),
       _color(color)
 {}
 
@@ -24,19 +25,19 @@ void Ball::Update()
 
 void Ball::HandleBounceTop()
 {
-    _position.y = 0.0f;    // Prevent bug when the ball go outside the screen
+    _position.y = MARGIN_Y +0.0f;    // Prevent bug when the ball go outside the screen
     _speed.y *= -1;
 }
 
 void Ball::HandleBounceBottom()
 {
-    _position.y = GetScreenHeight() - _size;
+    _position.y = MARGIN_Y + GAME_HEIGHT - _size;
     _speed.y *= -1;
 }
 
 void Ball::HandleBounceLeft()
 {
-    _position.x = 30.0f;
+    _position.x = MARGIN_X + 30.0f;
     _speed.x *= -1;     // bounce
 
     _speed.x += 100.0f;     // increase speed
@@ -45,7 +46,7 @@ void Ball::HandleBounceLeft()
 
 void Ball::HandleBounceRight()
 {
-    _position.x = GetScreenWidth() - 30.0f - _size;
+    _position.x = MARGIN_X + GAME_WIDTH - 30.0f - _size;
     _speed.x *= -1;     // bounce
 }
 
@@ -74,7 +75,8 @@ bool Ball::IsActive() const {
 
 // === Mutators ===
 void Ball::SetPosition(const Vector2& newPosition) {
-    _position = newPosition;
+    _position.x = MARGIN_X + newPosition.x;
+    _position.y = MARGIN_Y + newPosition.y;
 }
 
 void Ball::SetSpeed(const Vector2& newSpeed) {
@@ -83,8 +85,9 @@ void Ball::SetSpeed(const Vector2& newSpeed) {
 
 void Ball::Reset()
 {
-    _position = {(GetScreenWidth()/2.0f) - (_size/2), (GetScreenHeight()/2.0f) - (_size/2)};
-    _speed = {300.0f, 200.0f};
+    _size = GetReelValue(14.0f);
+    _position = {MARGIN_X + (GAME_WIDTH/2.0f) - (_size/2), MARGIN_Y + (GAME_HEIGHT/2.0f) - (_size/2)};
+    _speed = {GetReelValue(300.0f), GetReelValue(200.0f)};
 }
 
 void Ball::Activate() {

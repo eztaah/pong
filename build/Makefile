@@ -200,6 +200,30 @@ src/entities/src/paddle.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\debug.dir\build.make CMakeFiles/debug.dir/src/entities/src/paddle.cpp.s
 .PHONY : src/entities/src/paddle.cpp.s
 
+src/globals.obj: src/globals.cpp.obj
+.PHONY : src/globals.obj
+
+# target to build an object file
+src/globals.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\debug.dir\build.make CMakeFiles/debug.dir/src/globals.cpp.obj
+.PHONY : src/globals.cpp.obj
+
+src/globals.i: src/globals.cpp.i
+.PHONY : src/globals.i
+
+# target to preprocess a source file
+src/globals.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\debug.dir\build.make CMakeFiles/debug.dir/src/globals.cpp.i
+.PHONY : src/globals.cpp.i
+
+src/globals.s: src/globals.cpp.s
+.PHONY : src/globals.s
+
+# target to generate assembly for a file
+src/globals.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\debug.dir\build.make CMakeFiles/debug.dir/src/globals.cpp.s
+.PHONY : src/globals.cpp.s
+
 src/main.obj: src/main.cpp.obj
 .PHONY : src/main.obj
 
@@ -224,6 +248,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\debug.dir\build.make CMakeFiles/debug.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/managers/window_manager.obj: src/managers/window_manager.cpp.obj
+.PHONY : src/managers/window_manager.obj
+
+# target to build an object file
+src/managers/window_manager.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\debug.dir\build.make CMakeFiles/debug.dir/src/managers/window_manager.cpp.obj
+.PHONY : src/managers/window_manager.cpp.obj
+
+src/managers/window_manager.i: src/managers/window_manager.cpp.i
+.PHONY : src/managers/window_manager.i
+
+# target to preprocess a source file
+src/managers/window_manager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\debug.dir\build.make CMakeFiles/debug.dir/src/managers/window_manager.cpp.i
+.PHONY : src/managers/window_manager.cpp.i
+
+src/managers/window_manager.s: src/managers/window_manager.cpp.s
+.PHONY : src/managers/window_manager.s
+
+# target to generate assembly for a file
+src/managers/window_manager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\debug.dir\build.make CMakeFiles/debug.dir/src/managers/window_manager.cpp.s
+.PHONY : src/managers/window_manager.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -242,9 +290,15 @@ help:
 	@echo ... src/entities/src/paddle.obj
 	@echo ... src/entities/src/paddle.i
 	@echo ... src/entities/src/paddle.s
+	@echo ... src/globals.obj
+	@echo ... src/globals.i
+	@echo ... src/globals.s
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s
+	@echo ... src/managers/window_manager.obj
+	@echo ... src/managers/window_manager.i
+	@echo ... src/managers/window_manager.s
 .PHONY : help
 
 

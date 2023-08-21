@@ -3,18 +3,23 @@
 #include <string>
 
 
-Ball::Ball()
-    : _size(14.0f),
-      _position({(GetScreenWidth() / 2.0f) - (_size / 2.0f), (GetScreenHeight() / 2.0f) - (_size / 2.0f)}),
-      _speed({300.0f, 200.0f})
+Ball::Ball(const Color& color)
+    : _isActive(false),
+      _size(14.0f),
+      _position({0.0f, 0.0f}),
+      _speed({300.0f, 200.0f}),
+      _color(color)
 {}
 
 
 // === Movmement & Logic ===
 void Ball::Update()
 {
-    _position.x += _speed.x * GetFrameTime();   // * GetFrameTime() permet de rendre le déplacement de la balle constant
-    _position.y += _speed.y * GetFrameTime();
+    if(_isActive)
+    {
+        _position.x += _speed.x * GetFrameTime();   // * GetFrameTime() permet de rendre le déplacement de la balle constant
+        _position.y += _speed.y * GetFrameTime();
+    }
 }
 
 void Ball::HandleBounceTop()
@@ -54,8 +59,16 @@ Vector2 Ball::GetSpeed() const {
     return _speed;
 }
 
+float Ball::GetSize() const {
+    return _size;
+}
+
 Rectangle Ball::GetRectangle() const {
     return {_position.x, _position.y, _size, _size};
+}
+
+bool Ball::IsActive() const {
+    return _isActive;
 }
 
 
@@ -74,8 +87,16 @@ void Ball::Reset()
     _speed = {300.0f, 200.0f};
 }
 
+void Ball::Activate() {
+    _isActive = true;
+}
+
+void Ball::Desactivate() {
+    _isActive = false;
+}
+
 
 // === Rendering ===
 void Ball::Render() const {
-    DrawRectangle(_position.x, _position.y, _size, _size, BLACK);
+    DrawRectangle(_position.x, _position.y, _size, _size, _color);
 }

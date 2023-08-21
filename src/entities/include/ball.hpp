@@ -5,10 +5,10 @@
 class Ball
 {
 public:
-    Ball();
+    Ball(const Color& color);
 
     // === Movmement & Logic ===
-    void Update();
+    virtual void Update();
     void HandleBounceTop();
     void HandleBounceBottom();
     void HandleBounceLeft();
@@ -17,18 +17,24 @@ public:
     // === Accessors ===
     Vector2 GetPosition() const;
     Vector2 GetSpeed() const;
+    float GetSize() const;
     Rectangle GetRectangle() const;
+    bool IsActive() const;
 
     // === Mutators ===
     void SetPosition(const Vector2& newPosition);
     void SetSpeed(const Vector2& newSpeed);
     void Reset();
+    void Activate();
+    void Desactivate();
 
     // === Rendering ===
     void Render() const;
 
 private:
+    bool _isActive;
     float _size;
     Vector2 _position;
     Vector2 _speed;
+    Color _color;
 };

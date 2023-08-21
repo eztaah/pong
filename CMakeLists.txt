@@ -12,7 +12,7 @@ include_directories(src)
 include_directories(lib/raylib)
 include_directories(src/core)    
 include_directories(src/entities/include)
-include_directories(src/managers/include)
+include_directories(src/managers)
 
 # Link directories (where the .a or .lib files are located)
 link_directories(lib/raylib)
@@ -21,6 +21,9 @@ link_directories(lib/raylib)
 set(SOURCE_FILES
     src/main.cpp
 
+    src/globals.hpp
+    src/globals.cpp
+
     src/core/game.hpp
     src/core/game.cpp
 
@@ -28,6 +31,9 @@ set(SOURCE_FILES
     src/entities/src/ball.cpp
     src/entities/include/paddle.hpp
     src/entities/src/paddle.cpp
+
+    src/managers/window_manager.hpp
+    src/managers/window_manager.cpp
 )
 
 # Set the location of the exe file that will be created

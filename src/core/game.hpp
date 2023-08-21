@@ -11,6 +11,7 @@ public:
     Game();
     void Update();
     void Render();
+    void Reset();
 
 private:
     void _HandleInputs();

@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include "globals.hpp"
 #include <string>
 
 
@@ -7,15 +8,15 @@ Game::Game()
     : _ball(BLACK),
       _ghostBall(RED),
       _paddle1(30.0f),
-      _paddle2(GetScreenWidth() - 30.0f),
+      _paddle2(GAME_WIDTH - 30.0f),
       _ballsArray(),
       _isGameOver(false),
       _score(0)
 {
     // Set initial position for ball and ghost ball
-    _ball.SetPosition({(GetScreenWidth() / 2.0f) - (_ball.GetSize() / 2.0f), (GetScreenHeight() / 2.0f) - (_ball.GetSize() / 2.0f)});
-    _ghostBall.SetPosition({(GetScreenWidth() / 2.0f) - (_ghostBall.GetSize() / 2.0f), (GetScreenHeight() / 2.0f) - (_ghostBall.GetSize() / 2.0f)});
-
+    _ball.SetPosition({(GAME_WIDTH / 2.0f) - (_ball.GetSize() / 2.0f), (GAME_HEIGHT / 2.0f) - (_ball.GetSize() / 2.0f)});
+    _ghostBall.SetPosition({(GAME_WIDTH / 2.0f) - (_ghostBall.GetSize() / 2.0f), (GAME_HEIGHT / 2.0f) - (_ghostBall.GetSize() / 2.0f)});
+ 
     // Setup the array
     _ballsArray.push_back(&_ball);
     _ballsArray.push_back(&_ghostBall);
@@ -55,7 +56,11 @@ void Game::Update()
 void Game::Render()
 {
     BeginDrawing();
-    ClearBackground(WHITE);
+    ClearBackground(BLACK);
+
+    // Set up the drawing area
+    BeginScissorMode(MARGIN_X, MARGIN_Y, GAME_WIDTH, GAME_HEIGHT);
+    ClearBackground(RAYWHITE);  // Fill the game area with green
 
     // === Draw entities ===
     _paddle1.Render();
@@ -66,13 +71,27 @@ void Game::Render()
 
     // === Draw score ===
     std::string scoreStr = std::to_string(_score);   // Convert score to a string
-    DrawText(scoreStr.c_str(), 670, 20, 40, BLACK);     // Display the score
+    DrawText(scoreStr.c_str(), GetReelValue(670), GetReelValue(20), GetReelValue(40), BLACK);     // Display the score
 
     // === Draw restart message (if game over)===
     if(_isGameOver)
-        DrawText("PRESS SPACE TO RESTART", (GetScreenWidth() / 2.0f) - 290.0f, (GetScreenHeight() / 2.0f) - 10.0f, 40, GRAY);
+        DrawText("PRESS SPACE TO RESTART", (GAME_WIDTH / 2.0f) - GetReelValue(290.0f), (GAME_HEIGHT / 2.0f) - GetReelValue(10.0f), GetReelValue(40), GRAY);
 
+    EndScissorMode();
     EndDrawing();
+}
+
+void Game::Reset()
+{
+    _ball.Reset();
+    _ghostBall.Reset();
+    _ghostBall.Activate();
+    _ghostBall.SetSpeed({_ball.GetSpeed().x * 10.0f, _ball.GetSpeed().y * 10.0f});
+    _paddle1.Reset(30.0f);
+    _paddle2.Reset(GAME_WIDTH - 30.0f);
+
+    _isGameOver = false;
+    _score = 0;
 }
 
 
@@ -93,14 +112,14 @@ void Game::_HandleCollisions()
     {
         if(elt->GetRectangle().y < 0.0f)
             elt->HandleBounceTop();
-        else if(elt->GetRectangle().y > GetScreenHeight() - elt->GetRectangle().height) 
+        else if(elt->GetRectangle().y > GAME_HEIGHT - elt->GetRectangle().height) 
             elt->HandleBounceBottom();
     }
 
     // === Ball-Horizontal-Border collisions ===
     if(_ball.GetRectangle().x <= 0.0f)
         _isGameOver = true;
-    else if(_ball.GetRectangle().x >= GetScreenWidth() - 30.0f - _ball.GetRectangle().width)
+    else if(_ball.GetRectangle().x >= GAME_WIDTH - 30.0f - _ball.GetRectangle().width)
         _ball.HandleBounceRight();    // Replace the bot logic
 
     // === Ball-Paddle1 collisions ===
@@ -119,7 +138,7 @@ void Game::_HandleCollisions()
     }
 
     // === Ghost-ball right wall collision
-    if(_ghostBall.GetPosition().x >= GetScreenWidth() - _ghostBall.GetSize() - 30.0f)
+    if(_ghostBall.GetPosition().x >= GAME_WIDTH - _ghostBall.GetSize() - 30.0f)
     {
         _ghostBall.Desactivate();
         _botDefensePosition = _ghostBall.GetPosition().y + (_ghostBall.GetSize() / 2);
@@ -130,8 +149,10 @@ void Game::_Restart()
 {
     _ball.Reset();
     _ghostBall.Reset();
+    _ghostBall.Activate();
+    _ghostBall.SetSpeed({_ball.GetSpeed().x * 10.0f, _ball.GetSpeed().y * 10.0f});
     _paddle1.Reset(30.0f);
-    _paddle2.Reset(GetScreenWidth() - 30.0f);
+    _paddle2.Reset(GAME_WIDTH - 30.0f);
 
     _isGameOver = false;
     _score = 0;

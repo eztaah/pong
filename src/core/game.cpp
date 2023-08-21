@@ -1,122 +1,106 @@
 #include "game.hpp"
-#include <cmath>
 #include <string>
 
 
+///////////////// PUBLIC /////////////////
 Game::Game()
-{
-    ball = Ball();      // Initialize the ball
-    paddle1 = Paddle(30.0f);        // Initialize the left paddle
-    paddle2 = Paddle(GetScreenWidth() - 30.0f);     // Initialize the right paddle
-    running = true;
-    score = 0;
-}
-
+    : _ball(),
+      _paddle1(30.0f),
+      _paddle2(GetScreenWidth() - 30.0f),
+      _isGameOver(false),
+      _score(0)
+{}
 
 void Game::Update()
 {
-    if(running) 
+    if(!_isGameOver)    // If the game is running
     {
-        ManageCollisionBallWall();
-        ManageCollisionBallPaddle();
-        ball.Update();
-        paddle1.Update();
-        paddle2.Update();
+        _HandleInputs();    // Get keys pressed and update paddle1 position
+        _ball.Update();     // Update ball position
+
+        _HandleCollisions();    // Manage collisions between ball-boundary and ball-paddles
     } 
-    else
+    else    // If the game is not running
     {
         if (IsKeyDown(KEY_SPACE))    // If the game is not running and the space key is pressed
-        {
-            Restart();     
-        }
+            _Restart();   // Setup a new game
     }
 }
 
-
-void Game::Draw()
+void Game::Render()
 {
     BeginDrawing();
-    ClearBackground(BLACK);
+    ClearBackground(WHITE);
 
-    paddle1.Draw();
-    paddle2.Draw();
+    // === Draw entities ===
+    _paddle1.Render();
+    _paddle2.Render();
+    if(!_isGameOver)
+        _ball.Render();
 
-    std::string scoreStr = std::to_string(score);   // Convert score to a string
-    DrawText(scoreStr.c_str(), 670, 20, 40, WHITE); 
+    // === Draw score ===
+    std::string scoreStr = std::to_string(_score);   // Convert score to a string
+    DrawText(scoreStr.c_str(), 670, 20, 40, BLACK);     // Display the score
 
-    if(running)
-    {
-        ball.Draw();
-    } else {
-        DrawText("PRESS SPACE TO RESTART", (GetScreenWidth() / 2.0f) - 290.0f, (GetScreenHeight() / 2.0f) - 10.0f, 40, YELLOW);
-    }
+    // === Draw restart message (if game over)===
+    if(_isGameOver)
+        DrawText("PRESS SPACE TO RESTART", (GetScreenWidth() / 2.0f) - 290.0f, (GetScreenHeight() / 2.0f) - 10.0f, 40, GRAY);
 
     EndDrawing();
 }
 
 
-void Game::ManageCollisionBallWall()
+///////////////// PRIVATE /////////////////
+void Game::_HandleInputs()
 {
-    if (ball.GetRectangle().x < 0.0)
-    {
-        running = false;    // Game over
-    } 
-    else if (ball.GetRectangle().x > GetScreenWidth() - ball.GetRectangle().width) 
-    {
-        running = false;    // Game over
-    };
-    if (ball.GetRectangle().y < 0)
-    {
-        ball.SetYPosition(0.0f);    // Prevent bug when the ball go outside the screen
-        ball.SetYSpeed(-1 * ball.GetSpeed().y);     // Make the ball bounce
-    }
-    else if (ball.GetRectangle().y > GetScreenHeight() - ball.GetRectangle().height) 
-    {
-        ball.SetYPosition(GetScreenHeight() - ball.GetRectangle().height);  // Prevent bug when the ball go outside the screen
-        ball.SetYSpeed(-1 * ball.GetSpeed().y);     // Make the ball bounce
-    };
+    if (IsKeyDown(KEY_W))   // Raylib assumes that your keyboard is QWERTY, here KEY_W means KEY_Z on AZERTY keyboard
+        _paddle1.MoveUp();
+
+    if (IsKeyDown(KEY_S))
+        _paddle1.MoveDown();
 }
 
-
-void Game::ManageCollisionBallPaddle()
+void Game::_HandleCollisions()
 {
-    // Paddle 1 collisions
-    if (ball.GetSpeed().x < 0)      //prevent the ball from boncing inside the paddle
+    // === Ball-Border collisions ===
+    if(_ball.GetRectangle().y < 0.0f)
+        _ball.HandleBounceTop();
+    else if(_ball.GetRectangle().y > GetScreenHeight() - _ball.GetRectangle().height) 
+        _ball.HandleBounceBottom();
+
+    if(_ball.GetRectangle().x <= 0.0f)
+        _isGameOver = true;
+    else if(_ball.GetRectangle().x >= GetScreenWidth() - 30.0f - _ball.GetRectangle().width)
+        _ball.HandleBounceRight();    // Replace the bot logic
+
+
+    // === Ball-Paddle1 collisions ===
+    if (_ball.GetSpeed().x < 0.0f)     // Here the ball will into the paddle1
     {
-        if (CheckCollisionRecs(ball.GetRectangle(), paddle1.GetRectangle()))
+        if (CheckCollisionRecs(_ball.GetRectangle(), _paddle1.GetRectangle()))
         {
-            ball.SetXSpeed(-1 * ball.GetSpeed().x);     // Make the ball bounce
-            score++;
-            ball.SetXSpeed(ball.GetSpeed().x + 100.0f);     // Increase the speed of the ball
-            ball.SetYSpeed(ball.GetSpeed().y + 100.0f);
+            _ball.HandleBounceLeft();
+            _score++;
         };
     }
 
-    // Paddle 2 collision
-    else 
-    {
-        if (CheckCollisionRecs(ball.GetRectangle(), paddle2.GetRectangle()))
-        {
-            ball.SetXSpeed(-1 * ball.GetSpeed().x);     // Make the ball bounce
-            score++;
-            ball.SetXSpeed(ball.GetSpeed().x - 100.0f);     // Increase the speed of the ball
-            ball.SetYSpeed(ball.GetSpeed().y - 100.0f);
-        };
-    };
+    // === Ball-Paddle2 collisions ===                  // Commented because this paddle does not move right now
+    // else    // Here the ball will into the paddle2
+    // {
+    //     if (CheckCollisionRecs(_ball.GetRectangle(), _paddle2.GetRectangle()))
+    //     {
+    //         _ball.RightBounce();      
+    //         _score++;
+    //     };
+    // };
 }
 
-
-void Game::Restart()
+void Game::_Restart()
 {
-    ball.SetXPosition(GetScreenWidth() / 2.0f);
-    ball.SetYPosition(GetScreenHeight() / 2.0f);
-    ball.SetXSpeed(300.0f);
-    ball.SetYSpeed(300.0f);
-    paddle1.SetXPosition(30.0f);
-    paddle1.SetYPosition((GetScreenHeight() / 2.0f) - (paddle1.GetRectangle().height / 2.0f));
-    paddle2.SetXPosition(GetScreenWidth() - 30.0f);
-    paddle2.SetYPosition((GetScreenHeight() / 2.0f) - (paddle1.GetRectangle().height / 2.0f));
+    _ball.Reset();
+    _paddle1.Reset(30.0f);
+    _paddle2.Reset(GetScreenWidth() - 30.0f);
 
-    running = true;
-    score = 0;
+    _isGameOver = false;
+    _score = 0;
 }

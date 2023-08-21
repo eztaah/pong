@@ -8,17 +8,17 @@ class Game
 public:
     Game();
     void Update();
-    void Draw();
+    void Render();
 
 private:
-    void ManageCollisionBallWall();
-    void ManageCollisionBallPaddle();
-    void Restart();
+    void _HandleInputs();
+    void _HandleCollisions();
+    void _Restart();
 
-    Ball ball;
-    Paddle paddle1;
-    Paddle paddle2;
+    Ball _ball;
+    Paddle _paddle1;
+    Paddle _paddle2;
 
-    bool running;
-    int unsigned score;
+    bool _isGameOver;
+    int unsigned _score;
 };

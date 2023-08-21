@@ -2,52 +2,52 @@
 #include <raylib.hpp>
 
 
-Paddle::Paddle() {}
+Paddle::Paddle(const float positionX)
+    : _size({10.0f, 100.0f}),
+      _position({positionX, (GetScreenHeight() / 2.0f) - (_size.y / 2.0f)}),
+      _speed(900.0f)
+{}
 
 
-Paddle::Paddle(float x_)
-{
-    width = 10.0f;
-    height = 70.0f;
-    position.x = x_;
-    position.y = (GetScreenHeight() / 2.0f) - (height / 2.0f);
-    speed = 10.0f;
+// === Accessors ===
+Vector2 Paddle::GetPosition() const {
+    return _position;
+}
 
+float Paddle::GetSpeed() const {
+    return _speed;
+}
+
+Rectangle Paddle::GetRectangle() const {
+    return {_position.x, _position.y, _size.x, _size.y};
 }
 
 
-void Paddle::Update()
+// === Mutators ===
+void Paddle::SetPosition(const Vector2& newPosition) {
+    _position = newPosition;
+}
+
+void Paddle::MoveUp() {
+    _position.y -= _speed * GetFrameTime();
+}
+
+void Paddle::MoveDown() {
+    _position.y += _speed * GetFrameTime();
+}
+
+void Paddle::SetSpeed(const float newSpeed) {
+    _speed = newSpeed;
+}
+
+void Paddle::Reset(const float positionX)
 {
-    // Handle inputs
-    if (IsKeyDown(KEY_W))   // Works with QUERTY
-    {
-        position.y -= 600.0 * GetFrameTime();   // If the Z key is pressed, move the paddle to the top
-    };
-    if (IsKeyDown(KEY_S)) {
-        position.y += 600.0 * GetFrameTime();   // // If the S key is pressed, move the paddle to the bottom
-    };
+    _position = {positionX, (GetScreenHeight() / 2.0f) - (_size.y / 2.0f)};
+    _speed = 900.0f;
 }
 
 
-void Paddle::Draw() const
-{
-    DrawRectangle(position.x, position.y, width, height, BLUE);
-}
-
-
-Rectangle Paddle::GetRectangle() 
-{
-    return {position.x, position.y, width, height};
-}
-
-
-void Paddle::SetXPosition(float x_) 
-{
-    position.x = x_;
-}
-
-
-void Paddle::SetYPosition(float y_)
-{
-    position.y = y_;
+// === Rendering ===
+void Paddle::Render() const {
+    DrawRectangle(_position.x, _position.y, _size.x, _size.y, BLACK);
 }

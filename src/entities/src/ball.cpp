@@ -1,60 +1,81 @@
 #include "ball.hpp"
 #include <raylib.hpp>
-#include <iostream>
+#include <string>
+
 
 Ball::Ball()
-{
-    position = {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};     // Place the ball at the center of the screen
-    speed = {300.0f, 300.0f};
-    width = 10.0f;
-    height = 10.0f;
-}
+    : _size(14.0f),
+      _position({(GetScreenWidth() / 2.0f) - (_size / 2.0f), (GetScreenHeight() / 2.0f) - (_size / 2.0f)}),
+      _speed({300.0f, 200.0f})
+{}
 
 
+// === Movmement & Logic ===
 void Ball::Update()
 {
-    position.x += speed.x * GetFrameTime();     // Change the position of the ball
-    position.y += speed.y * GetFrameTime();     // " * GetFrameTime() " makes the ball move at the same speed on all computers
+    _position.x += _speed.x * GetFrameTime();   // * GetFrameTime() permet de rendre le déplacement de la balle constant
+    _position.y += _speed.y * GetFrameTime();
+}
+
+void Ball::HandleBounceTop()
+{
+    _position.y = 0.0f;    // Prevent bug when the ball go outside the screen
+    _speed.y *= -1;
+}
+
+void Ball::HandleBounceBottom()
+{
+    _position.y = GetScreenHeight() - _size;
+    _speed.y *= -1;
+}
+
+void Ball::HandleBounceLeft()
+{
+    _position.x = 30.0f;
+    _speed.x *= -1;     // bounce
+
+    _speed.x += 100.0f;     // increase speed
+    _speed.y += 66.6f;
+}
+
+void Ball::HandleBounceRight()
+{
+    _position.x = GetScreenWidth() - 30.0f - _size;
+    _speed.x *= -1;     // bounce
 }
 
 
-void Ball::Draw() const
-{
-    DrawRectangle(position.x, position.y, width, height, RED);
+// === Accessors ===
+Vector2 Ball::GetPosition() const {
+    return _position;
+}
+
+Vector2 Ball::GetSpeed() const {
+    return _speed;
+}
+
+Rectangle Ball::GetRectangle() const {
+    return {_position.x, _position.y, _size, _size};
 }
 
 
-Rectangle Ball::GetRectangle()
+// === Mutators ===
+void Ball::SetPosition(const Vector2& newPosition) {
+    _position = newPosition;
+}
+
+void Ball::SetSpeed(const Vector2& newSpeed) {
+    _speed = newSpeed;
+}
+
+void Ball::Reset()
 {
-    return {position.x, position.y, width, height};
+    _position = {(GetScreenWidth()/2.0f) - (_size/2), (GetScreenHeight()/2.0f) - (_size/2)};
+    _speed = {300.0f, 200.0f};
 }
 
 
-Vector2 Ball::GetSpeed() 
-{
-    return speed;
-}
-
-
-void Ball::SetXPosition(float x_) 
-{
-    position.x = x_;
-}
-
-
-void Ball::SetYPosition(float y_) 
-{
-    position.y = y_;
-}
-
-
-void Ball::SetXSpeed(float x_) 
-{
-    speed.x = x_;
-}
-
-
-void Ball::SetYSpeed(float y_) 
-{
-    speed.y = y_;
+// === Rendering ===
+void Ball::Render() const {
+    DrawRectangle(_position.x, _position.y, _size, _size, BLACK);
 }

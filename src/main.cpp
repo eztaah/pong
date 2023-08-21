@@ -5,7 +5,7 @@
 
 int main()
 {
-    InitWindow(1366, 768, "PONG");
+    InitWindow(1366, 768, "COMPETITIVE PONG");
     SetWindowState(FLAG_VSYNC_HINT);
     
     Game game = Game();
@@ -13,7 +13,7 @@ int main()
     while (!WindowShouldClose())
     {
         game.Update();
-        game.Draw();
+        game.Render();
     }
     CloseWindow();
     return 0;

@@ -1,4 +1,4 @@
-# Competitive Pong game
+# Competitive Pong
 
 A competitive pong game.
 

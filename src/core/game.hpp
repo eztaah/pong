@@ -16,7 +16,17 @@ public:
 private:
     void _HandleInputs();
     void _HandleCollisions();
-    void _Restart();
+    void _Start();
+
+    // === Update ===
+    void _UpdateStartMenu();
+    void _UpdateGame();
+    void _UpdateEndMenu();
+
+    // === Render ===
+    void _RenderStartMenu();
+    void _RenderGame();
+    void _RenderEndMenu();
 
     Ball _ball;
     Ball _ghostBall;
@@ -27,4 +37,8 @@ private:
     std::vector<Ball*> _ballsArray;
     bool _isGameOver;
     int unsigned _score;
+    int _state;
+    int _cursorPosition;
+
+    std::vector<Texture2D> _texturesArray;
 };

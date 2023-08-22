@@ -12,8 +12,10 @@ Game::Game()
       _paddle1(30.0f),
       _paddle2(GAME_WIDTH - 30.0f),
       _ballsArray(),
-      _isGameOver(false),
-      _score(0)
+      _score(0),
+      _state(0),
+      _cursorPosition(0),
+      _texturesArray()
 {
     // Set initial position for ball and ghost ball
     _ball.SetPosition({(GAME_WIDTH / 2.0f) - (_ball.GetSize() / 2.0f), (GAME_HEIGHT / 2.0f) - (_ball.GetSize() / 2.0f)});
@@ -27,31 +29,29 @@ Game::Game()
     _ball.Activate();
     _ghostBall.Activate();
     _ghostBall.SetSpeed({_ball.GetSpeed().x * 10.0f, _ball.GetSpeed().y * 10.0f});
+
+    // load texture
+    _texturesArray.push_back(LoadTexture("../assets/textures/daymode/main_menu_0.png"));
+    _texturesArray.push_back(LoadTexture("../assets/textures/daymode/main_menu_1.png"));
+    _texturesArray.push_back(LoadTexture("../assets/textures/daymode/main_menu_2.png"));
+    _texturesArray.push_back(LoadTexture("../assets/textures/daymode/main_menu_3.png"));
+
 }
 
 void Game::Update()
 {
-    if(!_isGameOver)
+    switch(_state)
     {
-        // Update paddle 1 position
-        _HandleInputs();
-
-        // Update paddle 2 position
-        if(_paddle2.GetPosition().y + (_paddle2.GetRectangle().height / 2) < _botDefensePosition)
-            _paddle2.MoveDown();
-        if(_paddle2.GetPosition().y + (_paddle2.GetRectangle().height / 2) > _botDefensePosition)
-            _paddle2.MoveUp();
-
-        // Update balls position
-        for(Ball* elt : _ballsArray)
-            elt->Update();
-
-        _HandleCollisions();
-    } 
-    else
-    {
-        if (IsKeyDown(KEY_SPACE))
-            _Restart();
+        case 0:
+            _UpdateStartMenu();
+            break;
+        
+        case 1:
+            _UpdateGame();
+            break;
+        case 2:
+            _UpdateEndMenu();
+            break;
     }
 }
 
@@ -64,20 +64,19 @@ void Game::Render()
     BeginScissorMode(MARGIN_X, MARGIN_Y, GAME_WIDTH, GAME_HEIGHT);
     ClearBackground(RAYWHITE);  // Fill the game area with green
 
-    // === Draw entities ===
-    _paddle1.Render();
-    _paddle2.Render();
-    if(!_isGameOver)
-        _ball.Render();
-    _ghostBall.Render();
-
-    // === Draw score ===
-    std::string scoreStr = std::to_string(_score);   // Convert score to a string
-    DrawText(scoreStr.c_str(), MARGIN_X + GetReelValue(670.0f), MARGIN_Y + GetReelValue(20.0f), GetReelValue(40.0f), BLACK);     // Display the score
-
-    // === Draw restart message (if game over)===
-    if(_isGameOver)
-        DrawText("PRESS SPACE TO RESTART", MARGIN_X + (GAME_WIDTH / 2.0f) - GetReelValue(290.0f), MARGIN_Y + (GAME_HEIGHT / 2.0f) - GetReelValue(10.0f), GetReelValue(40.0f), GRAY);
+    switch(_state) 
+    {
+        case 0:
+            _RenderStartMenu();
+            break;
+        
+        case 1:
+            _RenderGame();
+            break;
+        case 2:
+            _RenderEndMenu();
+            break;
+    }
 
     EndScissorMode();
     EndDrawing();
@@ -91,8 +90,6 @@ void Game::Reset()
     _ghostBall.SetSpeed({_ball.GetSpeed().x * 10.0f, _ball.GetSpeed().y * 10.0f});
     _paddle1.Reset(GetReelValue(30.0f));
     _paddle2.Reset(GAME_WIDTH - GetReelValue(30.0f));
-
-    _isGameOver = false;
     _score = 0;
 }
 
@@ -121,7 +118,7 @@ void Game::_HandleCollisions()
 
     // === Ball-Horizontal-Border collisions ===
     if(_ball.GetRectangle().x <= 0.0f)
-        _isGameOver = true;
+        _state = 0;     // Game Over
     else if(_ball.GetRectangle().x >= GAME_WIDTH - 30.0f - _ball.GetRectangle().width)
         _ball.HandleBounceRight();    // Prevent bot from losing
 
@@ -153,7 +150,7 @@ void Game::_HandleCollisions()
     }
 }
 
-void Game::_Restart()
+void Game::_Start()
 {
     _ball.Reset();
     _ghostBall.Reset();
@@ -161,7 +158,97 @@ void Game::_Restart()
     _ghostBall.SetSpeed({_ball.GetSpeed().x * 10.0f, _ball.GetSpeed().y * 10.0f});
     _paddle1.Reset(30.0f);
     _paddle2.Reset(GAME_WIDTH - 30.0f);
-
-    _isGameOver = false;
     _score = 0;
+    _state = 1;
+}
+
+
+void Game::_UpdateStartMenu()
+{
+    // Move cursor
+    if (IsKeyPressed(KEY_UP))
+    {
+        if(_cursorPosition == 0)
+            _cursorPosition = 3;
+        else
+            _cursorPosition -= 1;
+    }
+    if (IsKeyPressed(KEY_DOWN))
+    {
+        if(_cursorPosition == 3)
+            _cursorPosition = 0;
+        else
+            _cursorPosition += 1;
+    }
+
+    // Start Game
+    if (IsKeyDown(KEY_SPACE))
+    {
+        switch(_cursorPosition)
+        {
+            case 0:
+                _Start();   // <- mettre game state = 2
+                break;
+            case 1:
+                // 2 Players    // game state = 3
+                break;
+            case 2:
+                // Settings
+                break;
+            case 3:
+                // Exit
+                break;
+        }
+    }
+}
+
+
+void Game::_UpdateGame()
+{
+    // Update paddle 1 position
+    _HandleInputs();
+
+    // Update paddle 2 position
+    if(_paddle2.GetPosition().y + (_paddle2.GetRectangle().height / 2) < _botDefensePosition)
+        _paddle2.MoveDown();
+    if(_paddle2.GetPosition().y + (_paddle2.GetRectangle().height / 2) > _botDefensePosition)
+        _paddle2.MoveUp();
+
+    // Update balls position
+    for(Ball* elt : _ballsArray)
+        elt->Update();
+
+    _HandleCollisions();
+}
+
+void Game::_UpdateEndMenu()
+{
+    if (IsKeyDown(KEY_SPACE))
+        _Start();
+}
+
+
+// === Render ===
+void Game::_RenderStartMenu()
+{
+    float scale = static_cast<float>(GAME_WIDTH) / static_cast<float>(_texturesArray[_cursorPosition].width);
+    DrawTextureEx(_texturesArray[_cursorPosition], {MARGIN_X + 0.0f, MARGIN_Y + 0.0f}, 0.0f, scale, WHITE); 
+}
+
+void Game::_RenderGame()
+{
+    // === Draw entities ===
+    _paddle1.Render();
+    _paddle2.Render();
+    _ball.Render();
+    _ghostBall.Render();
+
+    // === Draw score ===
+    std::string scoreStr = std::to_string(_score);   // Convert score to a string
+    DrawText(scoreStr.c_str(), MARGIN_X + GetReelValue(670.0f), MARGIN_Y + GetReelValue(20.0f), GetReelValue(40.0f), BLACK);     // Display the score
+}
+
+void Game::_RenderEndMenu()
+{
+    DrawText("PRESS SPACE TO RESTART", MARGIN_X + (GAME_WIDTH / 2.0f) - GetReelValue(290.0f), MARGIN_Y + (GAME_HEIGHT / 2.0f) - GetReelValue(10.0f), GetReelValue(40.0f), GRAY); 
 }

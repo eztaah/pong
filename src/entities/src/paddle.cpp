@@ -31,11 +31,21 @@ void Paddle::SetPosition(const Vector2& newPosition) {
 }
 
 void Paddle::MoveUp() {
-    _position.y -= _speed * GetFrameTime();
+    // Vérifie si le paddle atteint le bord supérieur de l'écran
+    if (_position.y - _speed * GetFrameTime() > 10.0f) {
+        _position.y -= _speed * GetFrameTime();
+    } else {
+        _position.y = 10.0f;
+    }
 }
 
 void Paddle::MoveDown() {
-    _position.y += _speed * GetFrameTime();
+    // Vérifie si le paddle atteint le bord inférieur de l'écran
+    if (_position.y + _size.y + _speed * GetFrameTime() < WINDOW_HEIGHT - 10.0f) {
+        _position.y += _speed * GetFrameTime();
+    } else {
+        _position.y = WINDOW_HEIGHT - _size.y - 10.0f;
+    }
 }
 
 void Paddle::SetSpeed(const float newSpeed) {

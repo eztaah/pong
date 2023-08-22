@@ -45,5 +45,8 @@ target_link_options(debug PRIVATE -static -static-libstdc++ -static-libgcc)
 # Link to all the needed library
 target_link_libraries(debug raylib opengl32 gdi32 winmm)
 
-# compiler linker flags 
+# compiler compiler flags 
 target_compile_options(debug PRIVATE -Wall -Wextra)
+
+#compiler linker flags
+set_target_properties(debug PROPERTIES LINK_FLAGS "-mwindows")

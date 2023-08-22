@@ -2,6 +2,7 @@
 #include "game.hpp"
 #include "window_manager.hpp"
 #include <string>
+#include <cmath>
 
 
 ///////////////// PUBLIC /////////////////
@@ -117,18 +118,23 @@ void Game::_HandleCollisions()
             elt->HandleBounceBottom();
     }
 
+
     // === Ball-Horizontal-Border collisions ===
     if(_ball.GetRectangle().x <= 0.0f)
         _isGameOver = true;
     else if(_ball.GetRectangle().x >= GAME_WIDTH - 30.0f - _ball.GetRectangle().width)
-        _ball.HandleBounceRight();    // Replace the bot logic
+        _ball.HandleBounceRight();    // Prevent bot from losing
+
 
     // === Ball-Paddle1 collisions ===
-    if (_ball.GetSpeed().x < 0.0f)     // Here the ball will into the paddle1
+    if (_ball.GetSpeed().x < 0.0f)     // Here the ball will go into the paddle1
     {
         if (CheckCollisionRecs(_ball.GetRectangle(), _paddle1.GetRectangle()))
         {
-            _ball.HandleBounceLeft();
+            float mismatch{_ball.GetRectangle().y - _paddle1.GetRectangle().y - (_paddle1.GetRectangle().height / 2)};
+
+            _ball.HandleBounceLeft(mismatch);
+
             _score++;
 
             // Ghost ball
@@ -137,6 +143,7 @@ void Game::_HandleCollisions()
             _ghostBall.SetSpeed({_ball.GetSpeed().x * 10, _ball.GetSpeed().y * 10});
         };
     }
+
 
     // === Ghost-ball right wall collision
     if(_ghostBall.GetPosition().x >= GAME_WIDTH - _ghostBall.GetSize() - 30.0f)

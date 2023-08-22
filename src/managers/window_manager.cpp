@@ -65,7 +65,7 @@ void WindowManager::ManageFullScreen()
     else
     {
         SetWindowSize(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));
-        ManageWindowResizing(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));   // Gère la redimention de la fenetre de jeu
+        ManageWindowResizing(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));    // Gère la redimention de la fenetre de jeu
         ToggleFullScreen();
     }
 }

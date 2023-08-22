@@ -8,6 +8,7 @@ Ball::Ball(const Color& color)
     : _isActive(false),
       _size(GetReelValue(14.0f)),
       _position({0.0f, 0.0f}),
+      _speedCoeff(1.0f),
       _speed({GetReelValue(300.0f), GetReelValue(-200.0f)}),
       _color(color)
 {}
@@ -18,8 +19,8 @@ void Ball::Update()
 {
     if(_isActive)
     {
-        _position.x += _speed.x * GetFrameTime();   // * GetFrameTime() permet de rendre le déplacement de la balle constant
-        _position.y += _speed.y * GetFrameTime();
+        _position.x += _speedCoeff * _speed.x * GetFrameTime();   // * GetFrameTime() permet de rendre le déplacement de la balle constant
+        _position.y += _speedCoeff * _speed.y * GetFrameTime();
     }
 }
 
@@ -35,17 +36,21 @@ void Ball::HandleBounceBottom()
     _speed.y *= -1;
 }
 
-void Ball::HandleBounceLeft()
+void Ball::HandleBounceLeft(const float mismatch)
 {
     _position.x = 30.0f;
     _speed.x *= -1;     // bounce
 
-    _speed.x += 100.0f;     // increase speed
-    _speed.y += 66.6f;
+    _speedCoeff += 0.3;     // increase speed
+
+    if(mismatch <= 0)
+        _speed.y = -5 * abs(mismatch);
+    else 
+        _speed.y = 5 * abs(mismatch);
 }
 
 void Ball::HandleBounceRight()
-{
+{ 
     _position.x = GAME_WIDTH - 30.0f - _size;
     _speed.x *= -1;     // bounce
 }
@@ -88,6 +93,7 @@ void Ball::Reset()
     _size = GetReelValue(14.0f);
     _position = {(GAME_WIDTH/2.0f) - (_size/2), (GAME_HEIGHT/2.0f) - (_size/2)};
     _speed = {GetReelValue(300.0f), GetReelValue(-200.0f)};
+    _speedCoeff = 1.0f;
 }
 
 void Ball::Activate() {

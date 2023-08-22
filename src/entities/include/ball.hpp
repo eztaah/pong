@@ -11,7 +11,7 @@ public:
     virtual void Update();
     void HandleBounceTop();
     void HandleBounceBottom();
-    void HandleBounceLeft();
+    void HandleBounceLeft(const float mismatch);
     void HandleBounceRight();
 
     // === Accessors ===
@@ -35,6 +35,7 @@ private:
     bool _isActive;
     float _size;
     Vector2 _position;
+    float _speedCoeff;
     Vector2 _speed;
     Color _color;
 };

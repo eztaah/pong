@@ -1,5 +1,6 @@
-#include "game.hpp"
 #include "globals.hpp"
+#include "game.hpp"
+#include "window_manager.hpp"
 #include <string>
 
 
@@ -71,11 +72,11 @@ void Game::Render()
 
     // === Draw score ===
     std::string scoreStr = std::to_string(_score);   // Convert score to a string
-    DrawText(scoreStr.c_str(), GetReelValue(670), GetReelValue(20), GetReelValue(40), BLACK);     // Display the score
+    DrawText(scoreStr.c_str(), MARGIN_X + GetReelValue(670.0f), MARGIN_Y + GetReelValue(20.0f), GetReelValue(40.0f), BLACK);     // Display the score
 
     // === Draw restart message (if game over)===
     if(_isGameOver)
-        DrawText("PRESS SPACE TO RESTART", (GAME_WIDTH / 2.0f) - GetReelValue(290.0f), (GAME_HEIGHT / 2.0f) - GetReelValue(10.0f), GetReelValue(40), GRAY);
+        DrawText("PRESS SPACE TO RESTART", MARGIN_X + (GAME_WIDTH / 2.0f) - GetReelValue(290.0f), MARGIN_Y + (GAME_HEIGHT / 2.0f) - GetReelValue(10.0f), GetReelValue(40.0f), GRAY);
 
     EndScissorMode();
     EndDrawing();
@@ -87,8 +88,8 @@ void Game::Reset()
     _ghostBall.Reset();
     _ghostBall.Activate();
     _ghostBall.SetSpeed({_ball.GetSpeed().x * 10.0f, _ball.GetSpeed().y * 10.0f});
-    _paddle1.Reset(30.0f);
-    _paddle2.Reset(GAME_WIDTH - 30.0f);
+    _paddle1.Reset(GetReelValue(30.0f));
+    _paddle2.Reset(GAME_WIDTH - GetReelValue(30.0f));
 
     _isGameOver = false;
     _score = 0;

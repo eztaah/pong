@@ -52,11 +52,6 @@ void WindowManager::ManageWindowResizing(int newWidth, int newHeight) {
     // Calculate margins to center the game area in the window
     MARGIN_X = (WINDOW_WIDTH - GAME_WIDTH) / 2;
     MARGIN_Y = (WINDOW_HEIGHT - GAME_HEIGHT) / 2;
-
-    std::cout << MARGIN_X << std::endl;
-    std::cout << MARGIN_Y << std::endl;
-    std::cout << GAME_WIDTH << std::endl;
-    std::cout << GAME_HEIGHT << std::endl;
 }
 
 void WindowManager::ToggleFullScreen() {

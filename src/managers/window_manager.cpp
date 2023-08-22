@@ -35,7 +35,7 @@ bool WindowManager::WindowShouldClose() {
 }
 
 
-// === Mutators ===
+// === Logic ===
 void WindowManager::ManageWindowResizing(int newWidth, int newHeight) {
     WINDOW_WIDTH = newWidth;
     WINDOW_HEIGHT = newHeight;
@@ -52,13 +52,26 @@ void WindowManager::ManageWindowResizing(int newWidth, int newHeight) {
     // Calculate margins to center the game area in the window
     MARGIN_X = (WINDOW_WIDTH - GAME_WIDTH) / 2;
     MARGIN_Y = (WINDOW_HEIGHT - GAME_HEIGHT) / 2;
-
-    std::cout << MARGIN_X << std::endl;
-    std::cout << MARGIN_Y << std::endl;
-    std::cout << GAME_WIDTH << std::endl;
-    std::cout << GAME_HEIGHT << std::endl;
 }
 
+void WindowManager::ManageFullScreen()
+{
+    if(IsWindowFullscreen())
+    {
+        ToggleFullScreen();
+        SetWindowSize(1366, 768);
+        ManageWindowResizing(1366, 768);   // Gère la redimention de la fenetre de jeu
+    }
+    else
+    {
+        SetWindowSize(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));
+        ManageWindowResizing(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));   // Gère la redimention de la fenetre de jeu
+        ToggleFullScreen();
+    }
+}
+
+
+// === Mutators ===
 void WindowManager::ToggleFullScreen() {
     ::ToggleFullscreen();
 }

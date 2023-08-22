@@ -11,8 +11,11 @@ public:
     int GetHeight();
     bool WindowShouldClose();
 
-    // === Mutators ===
+    // === Logic ===
     void ManageWindowResizing(int newWidth, int newHeight);
+    void ManageFullScreen();
+
+    // === Mutators ===
     void ToggleFullScreen();
     
     // === Rendering ===

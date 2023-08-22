@@ -35,7 +35,7 @@ bool WindowManager::WindowShouldClose() {
 }
 
 
-// === Mutators ===
+// === Logic ===
 void WindowManager::ManageWindowResizing(int newWidth, int newHeight) {
     WINDOW_WIDTH = newWidth;
     WINDOW_HEIGHT = newHeight;
@@ -54,6 +54,24 @@ void WindowManager::ManageWindowResizing(int newWidth, int newHeight) {
     MARGIN_Y = (WINDOW_HEIGHT - GAME_HEIGHT) / 2;
 }
 
+void WindowManager::ManageFullScreen()
+{
+    if(IsWindowFullscreen())
+    {
+        ToggleFullScreen();
+        SetWindowSize(1366, 768);
+        ManageWindowResizing(1366, 768);   // Gère la redimention de la fenetre de jeu
+    }
+    else
+    {
+        SetWindowSize(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));
+        ManageWindowResizing(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));   // Gère la redimention de la fenetre de jeu
+        ToggleFullScreen();
+    }
+}
+
+
+// === Mutators ===
 void WindowManager::ToggleFullScreen() {
     ::ToggleFullscreen();
 }

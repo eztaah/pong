@@ -97,10 +97,10 @@ void Game::Reset()
 ///////////////// PRIVATE /////////////////
 void Game::_HandleInputs()
 {
-    if (IsKeyDown(KEY_W))   // Raylib assumes that your keyboard is QWERTY, here KEY_W means KEY_Z on AZERTY keyboard
+    if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP))   // Raylib assumes that your keyboard is QWERTY, here KEY_W means KEY_Z on AZERTY keyboard
         _paddle1.MoveUp();
 
-    if (IsKeyDown(KEY_S))
+    if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN))
         _paddle1.MoveDown();
 }
 
@@ -166,14 +166,14 @@ void Game::_Start()
 void Game::_UpdateStartMenu()
 {
     // Move cursor
-    if (IsKeyPressed(KEY_UP))
+    if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
     {
         if(_cursorPosition == 0)
             _cursorPosition = 3;
         else
             _cursorPosition -= 1;
     }
-    if (IsKeyPressed(KEY_DOWN))
+    if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S))
     {
         if(_cursorPosition == 3)
             _cursorPosition = 0;
@@ -182,7 +182,7 @@ void Game::_UpdateStartMenu()
     }
 
     // Start Game
-    if (IsKeyDown(KEY_SPACE))
+    if (IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_ENTER))
     {
         switch(_cursorPosition)
         {

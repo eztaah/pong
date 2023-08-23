@@ -1,11 +1,11 @@
 #include "globals.hpp"
-#include "ball.hpp"
+#include "Ball.hpp"
 #include <raylib.hpp>
 #include <string>
 
 
 Ball::Ball(const Color& color)
-    : _isActive(false),
+    : _isActive(false), 
       _size(GetReelValue(14.0f)),
       _position({0.0f, 0.0f}),
       _speedCoeff(1.0f),

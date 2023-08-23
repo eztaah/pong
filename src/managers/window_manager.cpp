@@ -1,4 +1,4 @@
-#include "window_manager.hpp"
+#include "Window_manager.hpp"
 #include "globals.hpp"
 #include <iostream>
 

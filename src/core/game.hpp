@@ -1,6 +1,6 @@
 #pragma once
-#include "ball.hpp"
-#include "paddle.hpp"
+#include "Ball.hpp"
+#include "Paddle.hpp"
 #include <vector>
 #include <memory>
 

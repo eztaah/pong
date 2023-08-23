@@ -1,4 +1,4 @@
-#include "paddle.hpp"
+#include "Paddle.hpp"
 #include "globals.hpp"
 #include <raylib.hpp>
 

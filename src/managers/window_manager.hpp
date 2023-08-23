@@ -7,7 +7,7 @@ public:
     ~WindowManager();
 
     // === Accessors ===
-    int GetWidth();
+    int GetWidth(); 
     int GetHeight();
     bool WindowShouldClose();
 

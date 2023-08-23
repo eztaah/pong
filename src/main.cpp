@@ -1,8 +1,8 @@
-#include "game.hpp"  
-#include "window_manager.hpp"
+#include "Game.hpp"  
+#include "Window_manager.hpp"
 #include <raylib.hpp>
 #include <iostream>
-//C:\Users\Reg\Desktop\competitive-pong\src
+
 
 int main()
 {

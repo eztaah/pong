@@ -1,5 +1,4 @@
 #pragma once
-#include <raylib.hpp>
 
 extern float ASPECT_RATIO;
 extern int WINDOW_WIDTH;

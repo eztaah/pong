@@ -41,8 +41,8 @@ set(SOURCE_FILES
     src/entities/include/Paddle.hpp
     src/entities/src/Paddle.cpp
 
-    src/managers/Window_manager.hpp
-    src/managers/Window_manager.cpp
+    src/managers/WindowManager.hpp
+    src/managers/WindowManager.cpp
 )
 
 # Set the location of the exe file that will be created

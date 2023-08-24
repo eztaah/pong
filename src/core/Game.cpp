@@ -1,6 +1,6 @@
 #include "globals.hpp"
 #include "Game.hpp"
-#include "Window_manager.hpp"
+#include "WindowManager.hpp"
 #include <string>
 #include <cmath>
 

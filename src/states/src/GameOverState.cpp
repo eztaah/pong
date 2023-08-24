@@ -21,7 +21,7 @@ void GameOverState::Update()
         //_Start();
 }
 
-void GameOverState:Render()
+void GameOverState::Render()
 {
 
 }

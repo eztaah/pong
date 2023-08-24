@@ -91,6 +91,7 @@ void Game::Reset()
     _paddle1.Reset(GetReelValue(30.0f));
     _paddle2.Reset(GAME_WIDTH - GetReelValue(30.0f));
     _score = 0;
+    _state = 0;
 }
 
 

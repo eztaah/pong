@@ -1,5 +1,5 @@
 #include "globals.hpp"
-#include "ball.hpp"
+#include "Ball.hpp"
 #include <string>
 
 

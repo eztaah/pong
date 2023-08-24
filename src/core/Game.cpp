@@ -1,6 +1,6 @@
 #include "globals.hpp"
-#include "game.hpp"
-#include "window_manager.hpp"
+#include "Game.hpp"
+#include "Window_manager.hpp"
 #include <string>
 #include <cmath>
 
@@ -97,10 +97,10 @@ void Game::Reset()
 ///////////////// PRIVATE /////////////////
 void Game::_HandleInputs()
 {
-    if (rl::IsKeyDown(rl::KEY_W))   // Raylib assumes that your keyboard is QWERTY, here KEY_W means KEY_Z on AZERTY keyboard
+    if (rl::IsKeyDown(rl::KEY_W) || rl::IsKeyDown(rl::KEY_UP))   // Raylib assumes that your keyboard is QWERTY, here KEY_W means KEY_Z on AZERTY keyboard
         _paddle1.MoveUp();
 
-    if (rl::IsKeyDown(rl::KEY_S))
+    if (rl::IsKeyDown(rl::KEY_S) || rl::IsKeyDown(rl::KEY_DOWN))
         _paddle1.MoveDown();
 }
 
@@ -166,14 +166,14 @@ void Game::_Start()
 void Game::_UpdateStartMenu()
 {
     // Move cursor
-    if (rl::IsKeyPressed(rl::KEY_UP))
+    if (rl::IsKeyPressed(rl::KEY_UP) || rl::IsKeyPressed(rl::KEY_W))
     {
         if(_cursorPosition == 0)
             _cursorPosition = 3;
         else
             _cursorPosition -= 1;
     }
-    if (rl::IsKeyPressed(rl::KEY_DOWN))
+    if (rl::IsKeyPressed(rl::KEY_DOWN) || rl::IsKeyPressed(rl::KEY_S))
     {
         if(_cursorPosition == 3)
             _cursorPosition = 0;
@@ -182,7 +182,7 @@ void Game::_UpdateStartMenu()
     }
 
     // Start Game
-    if (rl::IsKeyDown(rl::KEY_SPACE))
+    if (rl::IsKeyDown(rl::KEY_SPACE) || rl::IsKeyDown(rl::KEY_ENTER))
     {
         switch(_cursorPosition)
         {

@@ -1,7 +1,7 @@
 #pragma once
-#include "ball.hpp"
-#include "paddle.hpp"
 #include "libs.hpp"
+#include "Ball.hpp"
+#include "Paddle.hpp"
 #include <vector>
 
 
@@ -39,6 +39,6 @@ private:
     int unsigned _score;
     int _state;
     int _cursorPosition;
-
+    
     std::vector<rl::Texture2D> _texturesArray;
 };

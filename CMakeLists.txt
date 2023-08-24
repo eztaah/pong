@@ -33,16 +33,16 @@ set(SOURCE_FILES
     src/globals.hpp
     src/globals.cpp
 
-    src/core/game.hpp
-    src/core/game.cpp
+    src/core/Game.hpp
+    src/core/Game.cpp
 
-    src/entities/include/ball.hpp
-    src/entities/src/ball.cpp
-    src/entities/include/paddle.hpp
-    src/entities/src/paddle.cpp
+    src/entities/include/Ball.hpp
+    src/entities/src/Ball.cpp
+    src/entities/include/Paddle.hpp
+    src/entities/src/Paddle.cpp
 
-    src/managers/window_manager.hpp
-    src/managers/window_manager.cpp
+    src/managers/Window_manager.hpp
+    src/managers/Window_manager.cpp
 )
 
 # Set the location of the exe file that will be created

@@ -1,5 +1,5 @@
-#include "game.hpp"  
-#include "window_manager.hpp"
+#include "Game.hpp"  
+#include "Window_manager.hpp"
 #include "libs.hpp"
 
 

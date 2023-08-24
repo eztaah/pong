@@ -3,6 +3,12 @@
 #include "Ball.hpp"
 #include "Paddle.hpp"
 #include <vector>
+#include <memory>
+
+#include "GameState.hpp"
+#include "MenuState.hpp"
+#include "PlayingState.hpp"
+#include "GameOverState.hpp"
 
 
 class Game
@@ -18,16 +24,6 @@ private:
     void _HandleCollisions();
     void _Start();
 
-    // === Update ===
-    void _UpdateStartMenu();
-    void _UpdateGame();
-    void _UpdateEndMenu();
-
-    // === Render ===
-    void _RenderStartMenu();
-    void _RenderGame();
-    void _RenderEndMenu();
-
     Ball _ball;
     Ball _ghostBall;
     Paddle _paddle1;
@@ -37,8 +33,5 @@ private:
     std::vector<Ball*> _ballsArray;
     bool _isGameOver;
     int unsigned _score;
-    int _state;
-    int _cursorPosition;
-    
-    std::vector<rl::Texture2D> _texturesArray;
+    std::unique_ptr<GameState> _currentState;
 };

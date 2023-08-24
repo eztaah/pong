@@ -13,7 +13,8 @@ include_directories(lib)
 include_directories(lib/my_raylib)
 include_directories(lib/my_raylib/raylib)
 include_directories(lib/interact_engine)
-include_directories(src/core)    
+include_directories(src/core/include)
+include_directories(src/states/include)    
 include_directories(src/entities/include)
 include_directories(src/managers)
 
@@ -28,13 +29,21 @@ set(SOURCE_FILES
     lib/my_raylib/my_raylib.cpp
     lib/my_raylib/my_raylib.hpp
 
-    src/main.cpp
+    src/main.cpp 
+    src/globals.hpp 
+    src/globals.cpp 
 
-    src/globals.hpp
-    src/globals.cpp
+    src/core/include/Game.hpp
+    src/core/src/Game.cpp
+    src/core/include/GameState.hpp
 
-    src/core/Game.hpp
-    src/core/Game.cpp
+    src/states/include/GameOverState.hpp
+    src/states/src/GameOverState.cpp
+    src/states/include/MenuState.hpp
+    src/states/src/MenuState.cpp
+    src/states/include/PlayingState.hpp
+    src/states/src/PlayingState.cpp
+
 
     src/entities/include/Ball.hpp
     src/entities/src/Ball.cpp

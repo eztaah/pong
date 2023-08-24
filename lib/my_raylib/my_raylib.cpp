@@ -34,7 +34,6 @@ Texture2D ConvertToRaylib(const rl::Texture2D& texture) {
     result.format = texture.format;
     return result;
 }
-
 rl::Texture2D ConvertFromRaylib(const Texture2D& texture) {
     rl::Texture2D result;
     result.id = texture.id;

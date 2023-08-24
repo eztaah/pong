@@ -3,7 +3,6 @@
 namespace rl
 {
     // Vector2, 2 components
-    #define VECTOR2_DEFINED
     typedef struct Vector2 {    // typedef avoid the user to type "struct Vector2 vec{10.0f, 1.0f}""
         float x;                // Vector x component
         float y;                // Vector y component
@@ -11,7 +10,6 @@ namespace rl
 
 
     // Rectangle, 4 components
-    #define RECTANGLE_DEFINED
     typedef struct Rectangle {
         float x;                // Rectangle top-left corner position x
         float y;                // Rectangle top-left corner position y
@@ -20,7 +18,6 @@ namespace rl
     } Rectangle;
 
     // Color, 4 components, R8G8B8A8 (32bit)
-    #define COLOR_DEFINED
     typedef struct Color {
         unsigned char r;        // Color red value
         unsigned char g;        // Color green value
@@ -28,7 +25,6 @@ namespace rl
         unsigned char a;        // Color alpha value
     } Color;
 
-    #define TEXTURE_DEFINED
     typedef struct Texture2D {
         unsigned int id;        // OpenGL texture id
         int width;              // Texture base width
@@ -36,6 +32,7 @@ namespace rl
         int mipmaps;            // Mipmap levels, 1 by default
         int format;             // Data format (PixelFormat type)
     } Texture2D;
+    
 
     // Plain structures in C++ (without constructors) can be initialized with { }
     #if defined(__cplusplus)

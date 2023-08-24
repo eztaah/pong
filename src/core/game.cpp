@@ -7,8 +7,8 @@
 
 ///////////////// PUBLIC /////////////////
 Game::Game()
-    : _ball(BLACK),
-      _ghostBall(RED),
+    : _ball(rl::BLACK),
+      _ghostBall(rl::RED),
       _paddle1(30.0f),
       _paddle2(GAME_WIDTH - 30.0f),
       _ballsArray(),
@@ -31,10 +31,10 @@ Game::Game()
     _ghostBall.SetSpeed({_ball.GetSpeed().x * 10.0f, _ball.GetSpeed().y * 10.0f});
 
     // load texture
-    _texturesArray.push_back(LoadTexture("../assets/textures/daymode/main_menu_0.png"));
-    _texturesArray.push_back(LoadTexture("../assets/textures/daymode/main_menu_1.png"));
-    _texturesArray.push_back(LoadTexture("../assets/textures/daymode/main_menu_2.png"));
-    _texturesArray.push_back(LoadTexture("../assets/textures/daymode/main_menu_3.png"));
+    _texturesArray.push_back(rl::LoadTexture("../assets/textures/daymode/main_menu_0.png"));
+    _texturesArray.push_back(rl::LoadTexture("../assets/textures/daymode/main_menu_1.png"));
+    _texturesArray.push_back(rl::LoadTexture("../assets/textures/daymode/main_menu_2.png"));
+    _texturesArray.push_back(rl::LoadTexture("../assets/textures/daymode/main_menu_3.png"));
 
 }
 
@@ -57,12 +57,12 @@ void Game::Update()
 
 void Game::Render()
 {
-    BeginDrawing();
-    ClearBackground(BLACK);
+    rl::BeginDrawing();
+    rl::ClearBackground(rl::BLACK);
 
     // Set up the drawing area
-    BeginScissorMode(MARGIN_X, MARGIN_Y, GAME_WIDTH, GAME_HEIGHT);
-    ClearBackground(RAYWHITE);  // Fill the game area with green
+    rl::BeginScissorMode(MARGIN_X, MARGIN_Y, GAME_WIDTH, GAME_HEIGHT);
+    rl::ClearBackground(rl::RAYWHITE);  // Fill the game area with green
 
     switch(_state) 
     {
@@ -78,8 +78,8 @@ void Game::Render()
             break;
     }
 
-    EndScissorMode();
-    EndDrawing();
+    rl::EndScissorMode();
+    rl::EndDrawing();
 }
 
 void Game::Reset()
@@ -97,10 +97,10 @@ void Game::Reset()
 ///////////////// PRIVATE /////////////////
 void Game::_HandleInputs()
 {
-    if (IsKeyDown(KEY_W))   // Raylib assumes that your keyboard is QWERTY, here KEY_W means KEY_Z on AZERTY keyboard
+    if (rl::IsKeyDown(rl::KEY_W))   // Raylib assumes that your keyboard is QWERTY, here KEY_W means KEY_Z on AZERTY keyboard
         _paddle1.MoveUp();
 
-    if (IsKeyDown(KEY_S))
+    if (rl::IsKeyDown(rl::KEY_S))
         _paddle1.MoveDown();
 }
 
@@ -126,7 +126,7 @@ void Game::_HandleCollisions()
     // === Ball-Paddle1 collisions ===
     if (_ball.GetSpeed().x < 0.0f)     // Here the ball will go into the paddle1
     {
-        if (CheckCollisionRecs(_ball.GetRectangle(), _paddle1.GetRectangle()))
+        if (rl::CheckCollisionRecs(_ball.GetRectangle(), _paddle1.GetRectangle()))
         {
             float mismatch{_ball.GetRectangle().y - _paddle1.GetRectangle().y - (_paddle1.GetRectangle().height / 2)};
 
@@ -166,14 +166,14 @@ void Game::_Start()
 void Game::_UpdateStartMenu()
 {
     // Move cursor
-    if (IsKeyPressed(KEY_UP))
+    if (rl::IsKeyPressed(rl::KEY_UP))
     {
         if(_cursorPosition == 0)
             _cursorPosition = 3;
         else
             _cursorPosition -= 1;
     }
-    if (IsKeyPressed(KEY_DOWN))
+    if (rl::IsKeyPressed(rl::KEY_DOWN))
     {
         if(_cursorPosition == 3)
             _cursorPosition = 0;
@@ -182,7 +182,7 @@ void Game::_UpdateStartMenu()
     }
 
     // Start Game
-    if (IsKeyDown(KEY_SPACE))
+    if (rl::IsKeyDown(rl::KEY_SPACE))
     {
         switch(_cursorPosition)
         {
@@ -223,7 +223,7 @@ void Game::_UpdateGame()
 
 void Game::_UpdateEndMenu()
 {
-    if (IsKeyDown(KEY_SPACE))
+    if (rl::IsKeyDown(rl::KEY_SPACE))
         _Start();
 }
 
@@ -232,7 +232,7 @@ void Game::_UpdateEndMenu()
 void Game::_RenderStartMenu()
 {
     float scale = static_cast<float>(GAME_WIDTH) / static_cast<float>(_texturesArray[_cursorPosition].width);
-    DrawTextureEx(_texturesArray[_cursorPosition], {MARGIN_X + 0.0f, MARGIN_Y + 0.0f}, 0.0f, scale, WHITE); 
+    rl::DrawTextureEx(_texturesArray[_cursorPosition], {MARGIN_X + 0.0f, MARGIN_Y + 0.0f}, 0.0f, scale, rl::WHITE); 
 }
 
 void Game::_RenderGame()
@@ -245,10 +245,10 @@ void Game::_RenderGame()
 
     // === Draw score ===
     std::string scoreStr = std::to_string(_score);   // Convert score to a string
-    DrawText(scoreStr.c_str(), MARGIN_X + GetReelValue(670.0f), MARGIN_Y + GetReelValue(20.0f), GetReelValue(40.0f), BLACK);     // Display the score
+    rl::DrawText(scoreStr.c_str(), MARGIN_X + GetReelValue(670.0f), MARGIN_Y + GetReelValue(20.0f), GetReelValue(40.0f), rl::BLACK);     // Display the score
 }
 
 void Game::_RenderEndMenu()
 {
-    DrawText("PRESS SPACE TO RESTART", MARGIN_X + (GAME_WIDTH / 2.0f) - GetReelValue(290.0f), MARGIN_Y + (GAME_HEIGHT / 2.0f) - GetReelValue(10.0f), GetReelValue(40.0f), GRAY); 
+    rl::DrawText("PRESS SPACE TO RESTART", MARGIN_X + (GAME_WIDTH / 2.0f) - GetReelValue(290.0f), MARGIN_Y + (GAME_HEIGHT / 2.0f) - GetReelValue(10.0f), GetReelValue(40.0f), rl::GRAY); 
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include <raylib.hpp>
+#include <libs.hpp>
 
 
 class Paddle
@@ -8,12 +8,12 @@ public:
     Paddle(const float positionX);
 
     // === Accessors ===
-    Vector2 GetPosition() const;
+    rl::Vector2 GetPosition() const;
     float GetSpeed() const;
-    Rectangle GetRectangle() const ;
+    rl::Rectangle GetRectangle() const ;
 
     // === Mutators ===
-    void SetPosition(const Vector2& newPosition);
+    void SetPosition(const rl::Vector2& newPosition);
     void MoveUp();
     void MoveDown();
     void SetSpeed(const float newSpeed);
@@ -24,7 +24,7 @@ public:
     void Render() const;
 
 private:
-    Vector2 _size;
-    Vector2 _position;
+    rl::Vector2 _size;
+    rl::Vector2 _position;
     float _speed;
 };

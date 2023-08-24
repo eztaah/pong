@@ -1,6 +1,5 @@
 #include "paddle.hpp"
 #include "globals.hpp"
-#include <raylib.hpp>
 
 
 Paddle::Paddle(const float positionX)
@@ -11,7 +10,7 @@ Paddle::Paddle(const float positionX)
 
 
 // === Accessors ===
-Vector2 Paddle::GetPosition() const {
+rl::Vector2 Paddle::GetPosition() const {
     return _position;
 }
 
@@ -19,21 +18,21 @@ float Paddle::GetSpeed() const {
     return _speed;
 }
 
-Rectangle Paddle::GetRectangle() const {
+rl::Rectangle Paddle::GetRectangle() const {
     return {_position.x, _position.y, _size.x, _size.y};
 }
 
 
 // === Mutators ===
-void Paddle::SetPosition(const Vector2& newPosition) {
+void Paddle::SetPosition(const rl::Vector2& newPosition) {
     _position.x = newPosition.x;
     _position.y = newPosition.y;
 }
 
 void Paddle::MoveUp() {
     // Vérifie si le paddle atteint le bord supérieur de l'écran
-    if (_position.y - _speed * GetFrameTime() > 10.0f) {
-        _position.y -= _speed * GetFrameTime();
+    if (_position.y - _speed * rl::GetFrameTime() > 10.0f) {
+        _position.y -= _speed * rl::GetFrameTime();
     } else {
         _position.y = 10.0f;
     }
@@ -41,8 +40,8 @@ void Paddle::MoveUp() {
 
 void Paddle::MoveDown() {
     // Vérifie si le paddle atteint le bord inférieur de l'écran
-    if (_position.y + _size.y + _speed * GetFrameTime() < WINDOW_HEIGHT - 10.0f) {
-        _position.y += _speed * GetFrameTime();
+    if (_position.y + _size.y + _speed * rl::GetFrameTime() < WINDOW_HEIGHT - 10.0f) {
+        _position.y += _speed * rl::GetFrameTime();
     } else {
         _position.y = WINDOW_HEIGHT - _size.y - 10.0f;
     }
@@ -61,5 +60,5 @@ void Paddle::Reset(const float positionX)
 
 // === Rendering ===
 void Paddle::Render() const {
-    DrawRectangle(MARGIN_X + _position.x, MARGIN_Y + _position.y, _size.x, _size.y, BLACK);
+    rl::DrawRectangle(MARGIN_X + _position.x, MARGIN_Y + _position.y, _size.x, _size.y, rl::BLACK);
 }

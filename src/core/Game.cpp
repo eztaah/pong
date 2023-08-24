@@ -232,7 +232,7 @@ void Game::_UpdateEndMenu()
 void Game::_RenderStartMenu()
 {
     float scale = static_cast<float>(GAME_WIDTH) / static_cast<float>(_texturesArray[_cursorPosition].width);
-    rl::DrawTextureEx(_texturesArray[_cursorPosition], {MARGIN_X + 0.0f, MARGIN_Y + 0.0f}, 0.0f, scale, rl::WHITE); 
+    rl::DrawTextureEx(_texturesArray[_cursorPosition], {0.0f, 0.0f}, 0.0f, scale, rl::WHITE); 
 }
 
 void Game::_RenderGame()
@@ -245,10 +245,10 @@ void Game::_RenderGame()
 
     // === Draw score ===
     std::string scoreStr = std::to_string(_score);   // Convert score to a string
-    rl::DrawText(scoreStr.c_str(), MARGIN_X + GetReelValue(670.0f), MARGIN_Y + GetReelValue(20.0f), GetReelValue(40.0f), rl::BLACK);     // Display the score
+    rl::DrawText(scoreStr.c_str(), GetReelValue(670.0f), GetReelValue(20.0f), GetReelValue(40.0f), rl::BLACK);     // Display the score
 }
 
 void Game::_RenderEndMenu()
 {
-    rl::DrawText("PRESS SPACE TO RESTART", MARGIN_X + (GAME_WIDTH / 2.0f) - GetReelValue(290.0f), MARGIN_Y + (GAME_HEIGHT / 2.0f) - GetReelValue(10.0f), GetReelValue(40.0f), rl::GRAY); 
+    rl::DrawText("PRESS SPACE TO RESTART", (GAME_WIDTH / 2.0f) - GetReelValue(290.0f), (GAME_HEIGHT / 2.0f) - GetReelValue(10.0f), GetReelValue(40.0f), rl::GRAY); 
 }

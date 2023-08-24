@@ -60,5 +60,5 @@ void Paddle::Reset(const float positionX)
 
 // === Rendering ===
 void Paddle::Render() const {
-    rl::DrawRectangle(MARGIN_X + _position.x, MARGIN_Y + _position.y, _size.x, _size.y, rl::BLACK);
+    rl::DrawRectangle(_position.x, _position.y, _size.x, _size.y, rl::BLACK);
 }

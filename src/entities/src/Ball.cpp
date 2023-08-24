@@ -106,5 +106,5 @@ void Ball::Desactivate() {
 
 // === Rendering ===
 void Ball::Render() const {
-    rl::DrawRectangle(MARGIN_X + _position.x, MARGIN_Y + _position.y, _size, _size, _color);
+    rl::DrawRectangle(_position.x, _position.y, _size, _size, _color);
 }

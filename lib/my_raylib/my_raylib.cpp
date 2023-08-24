@@ -1,3 +1,4 @@
+#include "globals.hpp"
 #include "my_raylib.hpp"
 #include "raylib.hpp"
 
@@ -117,7 +118,7 @@ void rl::EndDrawing() {
 }
 
 void rl::DrawRectangle(int posX, int posY, int width, int height, rl::Color color) {
-    ::DrawRectangle(posX, posY, width, height, ConvertToRaylib(color));
+    ::DrawRectangle(MARGIN_X + posX, MARGIN_Y + posY, width, height, ConvertToRaylib(color));
 }
 
 void rl::BeginScissorMode(int x, int y, int width, int height) {
@@ -129,11 +130,14 @@ void rl::EndScissorMode() {
 }
 
 void rl::DrawTextureEx(rl::Texture2D texture, rl::Vector2 position, float rotation, float scale, rl::Color tint) {
-    ::DrawTextureEx(ConvertToRaylib(texture), ConvertToRaylib(position), rotation, scale, ConvertToRaylib(tint));
+    rl::Vector2 positionWithMargins;
+    positionWithMargins.x = MARGIN_X + position.x;
+    positionWithMargins.y = MARGIN_Y + position.y;
+    ::DrawTextureEx(ConvertToRaylib(texture), ConvertToRaylib(positionWithMargins), rotation, scale, ConvertToRaylib(tint));
 }
 
 void rl::DrawText(const char *text, int posX, int posY, int fontSize, rl::Color color) {
-    ::DrawText(text, posX, posY, fontSize, ConvertToRaylib(color));
+    ::DrawText(text, MARGIN_X + posX, MARGIN_Y + posY, fontSize, ConvertToRaylib(color));
 }
 
 

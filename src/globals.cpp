@@ -1,5 +1,6 @@
 #include "globals.hpp"
 
+
 ////////////////////// UTILITY //////////////////////////////////
 float ASPECT_RATIO{1366.0f / 768.0f};
 int WINDOW_WIDTH;

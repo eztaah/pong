@@ -9,16 +9,25 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Include directories, CMake will inform the compiler to also look in this directory when resolving #include directives.
 include_directories(src)
-include_directories(lib/raylib)
+include_directories(lib)
+include_directories(lib/my_raylib)
+include_directories(lib/my_raylib/raylib)
+include_directories(lib/interact_engine)
 include_directories(src/core)    
 include_directories(src/entities/include)
 include_directories(src/managers)
 
 # Link directories (where the .a or .lib files are located)
-link_directories(lib/raylib)
+link_directories(lib/my_raylib/raylib)
 
 # Source files 
 set(SOURCE_FILES
+    lib/libs.hpp
+    lib/interact_engine/interact_engine.cpp
+    lib/interact_engine/interact_engine.hpp
+    lib/my_raylib/my_raylib.cpp
+    lib/my_raylib/my_raylib.hpp
+
     src/main.cpp
 
     src/globals.hpp

@@ -1,5 +1,6 @@
 #pragma once
 
+
 extern float ASPECT_RATIO;
 extern int WINDOW_WIDTH;
 extern int WINDOW_HEIGHT;

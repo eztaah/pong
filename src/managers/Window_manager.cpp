@@ -1,15 +1,16 @@
 #include "Window_manager.hpp"
 #include "globals.hpp"
+#include "libs.hpp"
 #include <iostream>
 
 
 WindowManager::WindowManager(int width, int height, const char* title) 
 {
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    rl::SetConfigFlags(rl::FLAG_WINDOW_RESIZABLE);
     WINDOW_WIDTH = width;
     WINDOW_HEIGHT = height;
-    InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, title);
-    SetWindowState(FLAG_VSYNC_HINT);
+    rl::InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, title);
+    rl::SetWindowState(rl::FLAG_VSYNC_HINT);
     GAME_WIDTH = WINDOW_WIDTH;
     GAME_HEIGHT = WINDOW_HEIGHT;
     MARGIN_X = 0;
@@ -17,21 +18,7 @@ WindowManager::WindowManager(int width, int height, const char* title)
 }
 
 WindowManager::~WindowManager() {
-    CloseWindow();
-}
-
-
-// === Accessors ===
-int WindowManager::GetWidth() {
-    return GetScreenWidth();
-}
-
-int WindowManager::GetHeight() {
-    return GetScreenHeight();
-}
-
-bool WindowManager::WindowShouldClose() {
-    return ::WindowShouldClose();
+    rl::CloseWindow();
 }
 
 
@@ -56,32 +43,20 @@ void WindowManager::ManageWindowResizing(int newWidth, int newHeight) {
 
 void WindowManager::ManageFullScreen()
 {
-    if(IsWindowFullscreen())
+    if(rl::IsWindowFullscreen())
     {
-        ToggleFullScreen();
-        SetWindowSize(1366, 768);
+        rl::ToggleFullscreen();
+        rl::SetWindowSize(1366, 768);
         ManageWindowResizing(1366, 768);   // Gère la redimention de la fenetre de jeu
     }
     else
     {
-        SetWindowSize(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));
-        ManageWindowResizing(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));    // Gère la redimention de la fenetre de jeu
-        ToggleFullScreen();
+        int currentMonitor = rl::GetCurrentMonitor();
+        int monitorWidth = rl::GetMonitorWidth(currentMonitor);
+        int monitorHeight = rl::GetMonitorHeight(currentMonitor);
+        
+        rl::SetWindowSize(monitorWidth, monitorHeight);
+        ManageWindowResizing(monitorWidth, monitorHeight);    // Gère la redimention de la fenetre de jeu
+        rl::ToggleFullscreen();
     }
-}
-
-
-// === Mutators ===
-void WindowManager::ToggleFullScreen() {
-    ::ToggleFullscreen();
-}
-
-
-// === Rendering ===
-void WindowManager::BeginDrawing() {
-    ::BeginDrawing();
-}
-
-void WindowManager::EndDrawing() {
-    ::EndDrawing();
 }

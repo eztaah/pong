@@ -1,11 +1,10 @@
 #include "globals.hpp"
 #include "Ball.hpp"
-#include <raylib.hpp>
 #include <string>
 
 
-Ball::Ball(const Color& color)
-    : _isActive(false), 
+Ball::Ball(const rl::Color& color)
+    : _isActive(false),
       _size(GetReelValue(14.0f)),
       _position({0.0f, 0.0f}),
       _speedCoeff(1.0f),
@@ -19,8 +18,8 @@ void Ball::Update()
 {
     if(_isActive)
     {
-        _position.x += _speedCoeff * _speed.x * GetFrameTime();   // * GetFrameTime() permet de rendre le déplacement de la balle constant
-        _position.y += _speedCoeff * _speed.y * GetFrameTime();
+        _position.x += _speedCoeff * _speed.x * rl::GetFrameTime();   // * GetFrameTime() permet de rendre le déplacement de la balle constant
+        _position.y += _speedCoeff * _speed.y * rl::GetFrameTime();
     }
 }
 
@@ -57,11 +56,11 @@ void Ball::HandleBounceRight()
 
 
 // === Accessors ===
-Vector2 Ball::GetPosition() const {
+rl::Vector2 Ball::GetPosition() const {
     return _position;
 }
 
-Vector2 Ball::GetSpeed() const {
+rl::Vector2 Ball::GetSpeed() const {
     return _speed;
 }
 
@@ -69,7 +68,7 @@ float Ball::GetSize() const {
     return _size;
 }
 
-Rectangle Ball::GetRectangle() const {
+rl::Rectangle Ball::GetRectangle() const {
     return {_position.x, _position.y, _size, _size};
 }
 
@@ -79,12 +78,12 @@ bool Ball::IsActive() const {
 
 
 // === Mutators ===
-void Ball::SetPosition(const Vector2& newPosition) {
+void Ball::SetPosition(const rl::Vector2& newPosition) {
     _position.x = newPosition.x;
     _position.y = newPosition.y;
 }
 
-void Ball::SetSpeed(const Vector2& newSpeed) {
+void Ball::SetSpeed(const rl::Vector2& newSpeed) {
     _speed = newSpeed;
 }
 
@@ -107,5 +106,5 @@ void Ball::Desactivate() {
 
 // === Rendering ===
 void Ball::Render() const {
-    DrawRectangle(MARGIN_X + _position.x, MARGIN_Y + _position.y, _size, _size, _color);
+    rl::DrawRectangle(MARGIN_X + _position.x, MARGIN_Y + _position.y, _size, _size, _color);
 }

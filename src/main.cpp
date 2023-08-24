@@ -1,7 +1,6 @@
 #include "Game.hpp"  
 #include "Window_manager.hpp"
-#include <raylib.hpp>
-#include <iostream>
+#include "libs.hpp"
 
 
 int main()
@@ -10,15 +9,16 @@ int main()
      
     Game game = Game();
     
-    while (!WindowShouldClose())
+    while (!rl::WindowShouldClose())
     {
-        if (IsWindowResized())
+        if (rl::IsWindowResized())
         {
-            window.ManageWindowResizing(GetScreenWidth(), GetScreenHeight());   // Gère la redimention de la fenetre de jeu
+            window.ManageWindowResizing(rl::GetScreenWidth(), rl::GetScreenHeight());   // Gère la redimention de la fenetre de jeu
             game.Reset();
         }
         // Toggle full screen if f key pressed
-        if(IsKeyPressed(KEY_F)) {
+        if(rl::IsKeyPressed(rl::KEY_F)) 
+        {
             window.ManageFullScreen();
             game.Reset();
         }
@@ -26,6 +26,6 @@ int main()
         game.Update();
         game.Render();
     }
-    CloseWindow();
+    rl::CloseWindow();
     return 0;
 }

@@ -44,18 +44,11 @@ void PlayingState::OnExit()
 
 void PlayingState::Update()
 {
-    // Update paddle 1 position
-    if (rl::IsKeyDown(rl::KEY_W) || rl::IsKeyDown(rl::KEY_UP))   // Raylib assumes that your keyboard is QWERTY, here KEY_W means KEY_Z on AZERTY keyboard
-        _paddle1.MoveUp();
-    if (rl::IsKeyDown(rl::KEY_S) || rl::IsKeyDown(rl::KEY_DOWN))
-        _paddle1.MoveDown();
+    // Update paddle1 position
+    _paddle1.Update();
 
-
-    // Update paddle 2 position
-    if(_paddle2.GetPosition().y + (_paddle2.GetRectangle().height / 2) < _botDefensePosition)
-        _paddle2.MoveDown();
-    if(_paddle2.GetPosition().y + (_paddle2.GetRectangle().height / 2) > _botDefensePosition)
-        _paddle2.MoveUp();
+    // Update paddle2 position
+    _paddle2.Update(_botDefensePosition);
 
     // Update balls position
     for(Ball* elt : _ballsArray)
@@ -118,7 +111,6 @@ void PlayingState::_HandleCollisions()
             _ghostBall.SetSpeed({_ball.GetSpeed().x * 10, _ball.GetSpeed().y * 10});
         };
     }
-
 
     // === Ghost-ball right wall collision
     if(_ghostBall.GetPosition().x >= GAME_WIDTH - _ghostBall.GetSize() - 30.0f)

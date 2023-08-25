@@ -14,7 +14,7 @@ include_directories(lib/my_raylib)
 include_directories(lib/my_raylib/raylib)
 include_directories(lib/interact_engine)
 include_directories(src/core)
-include_directories(src/states)    
+include_directories(src/core/game_states)    
 include_directories(src/entities)
 include_directories(src/managers)
 
@@ -37,17 +37,19 @@ set(SOURCE_FILES
     src/core/Game.cpp
     src/core/GameState.hpp
 
-    src/states/GameOverState.hpp
-    src/states/GameOverState.cpp
-    src/states/MenuState.hpp
-    src/states/MenuState.cpp
-    src/states/PlayingState.hpp
-    src/states/PlayingState.cpp
-
     src/entities/Ball.hpp
     src/entities/Ball.cpp
     src/entities/Paddle.hpp
     src/entities/Paddle.cpp
+    src/entities/BotPaddle.hpp
+    src/entities/BotPaddle.cpp   
+
+    src/core/game_states/GameOverState.hpp
+    src/core/game_states/GameOverState.cpp
+    src/core/game_states/MenuState.hpp
+    src/core/game_states/MenuState.cpp
+    src/core/game_states/PlayingState.hpp
+    src/core/game_states/PlayingState.cpp
 
     src/managers/WindowManager.hpp
     src/managers/WindowManager.cpp

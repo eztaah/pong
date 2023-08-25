@@ -23,6 +23,17 @@ rl::Rectangle Paddle::GetRectangle() const {
 }
 
 
+// === Movement & Logic ===
+void Paddle::Update()
+{
+    // Update paddle 1 position
+    if (rl::IsKeyDown(rl::KEY_W) || rl::IsKeyDown(rl::KEY_UP))   // Raylib assumes that your keyboard is QWERTY, here KEY_W means KEY_Z on AZERTY keyboard
+        MoveUp();
+    if (rl::IsKeyDown(rl::KEY_S) || rl::IsKeyDown(rl::KEY_DOWN))
+        MoveDown();
+}
+
+
 // === Mutators ===
 void Paddle::SetPosition(const rl::Vector2& newPosition) {
     _position.x = newPosition.x;

@@ -3,6 +3,7 @@
 #include "libs.hpp"
 #include "Ball.hpp"
 #include "Paddle.hpp"
+#include "BotPaddle.hpp"
 #include <vector>
 #include "Game.hpp"
 
@@ -24,7 +25,7 @@ private:
     Ball _ball;
     Ball _ghostBall;
     Paddle _paddle1;
-    Paddle _paddle2;
+    BotPaddle _paddle2;
 
     float _botDefensePosition;
     std::vector<Ball*> _ballsArray;

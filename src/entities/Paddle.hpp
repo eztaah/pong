@@ -12,6 +12,9 @@ public:
     float GetSpeed() const;
     rl::Rectangle GetRectangle() const ;
 
+    // === Movement & Logic ===
+    void Update();
+
     // === Mutators ===
     void SetPosition(const rl::Vector2& newPosition);
     void MoveUp();
@@ -19,11 +22,10 @@ public:
     void SetSpeed(const float newSpeed);
     void Reset(const float positionX);
 
-
     // === Rendering ===
     void Render() const;
 
-private:
+protected:
     rl::Vector2 _size;
     rl::Vector2 _position;
     float _speed;

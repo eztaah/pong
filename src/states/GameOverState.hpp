@@ -15,5 +15,6 @@ public:
     void Render() override;
 
 private: 
-
+    Game* _game;
+    rl::Texture2D _texture;
 };

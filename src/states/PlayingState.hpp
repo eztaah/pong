@@ -29,5 +29,5 @@ private:
 
     float _botDefensePosition;
     std::vector<Ball*> _ballsArray;
-    int unsigned _score;
+
 };

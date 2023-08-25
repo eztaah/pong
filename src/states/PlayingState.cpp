@@ -9,8 +9,7 @@ PlayingState::PlayingState(Game* game)    // WHen the game changes state
       _ghostBall(rl::RED),
       _paddle1(30.0f),
       _paddle2(GAME_WIDTH - 30.0f),
-      _ballsArray(),
-      _score(0)
+      _ballsArray()
 {
     // Set initial position for ball and ghost ball
     _ball.SetPosition({(GAME_WIDTH / 2.0f) - (_ball.GetSize() / 2.0f), (GAME_HEIGHT / 2.0f) - (_ball.GetSize() / 2.0f)});
@@ -30,7 +29,7 @@ void PlayingState::OnEnter()
     _ghostBall.SetSpeed({_ball.GetSpeed().x * 10.0f, _ball.GetSpeed().y * 10.0f});
     _paddle1.Reset(30.0f);
     _paddle2.Reset(GAME_WIDTH - 30.0f);
-    _score = 0;
+    _game->ResetScore();
 
     // Activate the ball
     _ball.Activate();
@@ -74,7 +73,7 @@ void PlayingState::Render()
     _ghostBall.Render();
 
     // === Draw score ===
-    std::string scoreStr = std::to_string(_score);   // Convert score to a string
+    std::string scoreStr = std::to_string(_game->GetScore());   // Convert score to a string
     rl::DrawText(scoreStr.c_str(), GetReelValue(670.0f), GetReelValue(20.0f), GetReelValue(40.0f), rl::BLACK);     // Display the score
 }
 
@@ -96,7 +95,7 @@ void PlayingState::_HandleCollisions()
     // === Ball-Horizontal-Border collisions ===
     if(_ball.GetRectangle().x <= 0.0f)
     {
-        _game->MenuGame();
+        _game->EndGame();
     }
     else if(_ball.GetRectangle().x >= GAME_WIDTH - 30.0f - _ball.GetRectangle().width)
         _ball.HandleBounceRight();    // Prevent bot from losing
@@ -111,7 +110,7 @@ void PlayingState::_HandleCollisions()
 
             _ball.HandleBounceLeft(mismatch);
 
-            _score++;
+            _game->IncreaseScore();
 
             // Ghost ball
             _ghostBall.SetPosition(_ball.GetPosition());

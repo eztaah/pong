@@ -46,7 +46,7 @@ void MenuState::Update()
 
 
     // Start Game
-    if (rl::IsKeyDown(rl::KEY_SPACE) || rl::IsKeyDown(rl::KEY_ENTER))
+    if (rl::IsKeyPressed(rl::KEY_SPACE) || rl::IsKeyPressed(rl::KEY_ENTER))
     {
         switch(_cursorPosition)
         {

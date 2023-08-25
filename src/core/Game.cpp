@@ -7,7 +7,8 @@
 
 ///////////////// PUBLIC /////////////////
 Game::Game()
-    : _currentState(std::make_unique<MenuState>(this))
+    : _currentState(std::make_unique<MenuState>(this)),
+      _score(0)
 {
     // Setup current game state
     _currentState->OnEnter();
@@ -48,6 +49,18 @@ void Game::StartGame() {
 
 void Game::EndGame() {
     _ChangeState(std::make_unique<GameOverState>(this));
+}
+
+unsigned int Game::GetScore() const {
+    return _score;
+}
+
+void Game::IncreaseScore() {
+    _score++;
+}
+
+void Game::ResetScore() {
+    _score = 0;
 }
 
 

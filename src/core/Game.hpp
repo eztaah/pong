@@ -18,8 +18,12 @@ public:
     void StartGame();
     void EndGame();
 
+    unsigned int GetScore() const;
+    void IncreaseScore();
+    void ResetScore();
+
 private:
     void _ChangeState(std::unique_ptr<GameState> newState);
-
     std::unique_ptr<GameState> _currentState;
+    int unsigned _score;
 };

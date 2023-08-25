@@ -1,19 +1,16 @@
+#include "PlayingState.hpp"
 #include "globals.hpp"
-#include "Game.hpp"
-#include "WindowManager.hpp"
 #include <string>
-#include <cmath>
 
 
-///////////////// PUBLIC /////////////////
-Game::Game()
-    : _ball(rl::BLACK),
+PlayingState::PlayingState(Game* game)    // WHen the game changes state
+    : _game(game),
+      _ball(rl::BLACK),
       _ghostBall(rl::RED),
       _paddle1(30.0f),
       _paddle2(GAME_WIDTH - 30.0f),
       _ballsArray(),
-      _score(0),
-      _currentState(std::make_unique<MenuState>())
+      _score(0)
 {
     // Set initial position for ball and ghost ball
     _ball.SetPosition({(GAME_WIDTH / 2.0f) - (_ball.GetSize() / 2.0f), (GAME_HEIGHT / 2.0f) - (_ball.GetSize() / 2.0f)});
@@ -22,6 +19,18 @@ Game::Game()
     // Setup the array
     _ballsArray.push_back(&_ball);
     _ballsArray.push_back(&_ghostBall);
+}
+
+
+void PlayingState::OnEnter()
+{
+    _ball.Reset();
+    _ghostBall.Reset();
+    _ghostBall.Activate();
+    _ghostBall.SetSpeed({_ball.GetSpeed().x * 10.0f, _ball.GetSpeed().y * 10.0f});
+    _paddle1.Reset(30.0f);
+    _paddle2.Reset(GAME_WIDTH - 30.0f);
+    _score = 0;
 
     // Activate the ball
     _ball.Activate();
@@ -29,50 +38,50 @@ Game::Game()
     _ghostBall.SetSpeed({_ball.GetSpeed().x * 10.0f, _ball.GetSpeed().y * 10.0f});
 }
 
-void Game::Update()
+void PlayingState::OnExit()
 {
-    _currentState->Update();
+
 }
 
-void Game::Render()
+void PlayingState::Update()
 {
-    rl::BeginDrawing();
-    rl::ClearBackground(rl::BLACK);
-
-    // Set up the drawing area
-    rl::BeginScissorMode(MARGIN_X, MARGIN_Y, GAME_WIDTH, GAME_HEIGHT);
-    rl::ClearBackground(rl::RAYWHITE);  // Fill the game area with green
-
-    _currentState->Render();
-
-    rl::EndScissorMode();
-    rl::EndDrawing();
-}
-
-void Game::Reset()
-{
-    _ball.Reset();
-    _ghostBall.Reset();
-    _ghostBall.Activate();
-    _ghostBall.SetSpeed({_ball.GetSpeed().x * 10.0f, _ball.GetSpeed().y * 10.0f});
-    _paddle1.Reset(GetReelValue(30.0f));
-    _paddle2.Reset(GAME_WIDTH - GetReelValue(30.0f));
-    _score = 0;
-    //_state = 0;
-}
-
-
-///////////////// PRIVATE /////////////////
-void Game::_HandleInputs()
-{
+    // Update paddle 1 position
     if (rl::IsKeyDown(rl::KEY_W) || rl::IsKeyDown(rl::KEY_UP))   // Raylib assumes that your keyboard is QWERTY, here KEY_W means KEY_Z on AZERTY keyboard
         _paddle1.MoveUp();
-
     if (rl::IsKeyDown(rl::KEY_S) || rl::IsKeyDown(rl::KEY_DOWN))
         _paddle1.MoveDown();
+
+
+    // Update paddle 2 position
+    if(_paddle2.GetPosition().y + (_paddle2.GetRectangle().height / 2) < _botDefensePosition)
+        _paddle2.MoveDown();
+    if(_paddle2.GetPosition().y + (_paddle2.GetRectangle().height / 2) > _botDefensePosition)
+        _paddle2.MoveUp();
+
+    // Update balls position
+    for(Ball* elt : _ballsArray)
+        elt->Update();
+
+    _HandleCollisions();
 }
 
-void Game::_HandleCollisions()
+void PlayingState::Render()
+{
+    // === Draw entities ===
+    _paddle1.Render();
+    _paddle2.Render();
+    _ball.Render();
+    _ghostBall.Render();
+
+    // === Draw score ===
+    std::string scoreStr = std::to_string(_score);   // Convert score to a string
+    rl::DrawText(scoreStr.c_str(), GetReelValue(670.0f), GetReelValue(20.0f), GetReelValue(40.0f), rl::BLACK);     // Display the score
+}
+
+
+
+
+void PlayingState::_HandleCollisions()
 {
     // === Balls-Vertical-Border collisions ===
     for(Ball* elt : _ballsArray)
@@ -87,7 +96,7 @@ void Game::_HandleCollisions()
     // === Ball-Horizontal-Border collisions ===
     if(_ball.GetRectangle().x <= 0.0f)
     {
-        //_state = 0;     // Game Over
+        _game->MenuGame();
     }
     else if(_ball.GetRectangle().x >= GAME_WIDTH - 30.0f - _ball.GetRectangle().width)
         _ball.HandleBounceRight();    // Prevent bot from losing
@@ -119,17 +128,3 @@ void Game::_HandleCollisions()
         _botDefensePosition = _ghostBall.GetPosition().y + (_ghostBall.GetSize() / 2);
     }
 }
-
-void Game::_Start()
-{
-    _ball.Reset();
-    _ghostBall.Reset();
-    _ghostBall.Activate();
-    _ghostBall.SetSpeed({_ball.GetSpeed().x * 10.0f, _ball.GetSpeed().y * 10.0f});
-    _paddle1.Reset(30.0f);
-    _paddle2.Reset(GAME_WIDTH - 30.0f);
-    _score = 0;
-    //_state = 1;
-}
-
-

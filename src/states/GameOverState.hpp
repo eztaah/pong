@@ -1,13 +1,13 @@
 #pragma once
 #include "GameState.hpp"
 #include "libs.hpp"
-#include <vector>
+#include "Game.hpp"
 
 
-class MenuState : public GameState
+class GameOverState : public GameState
 {
 public:
-    MenuState();
+    GameOverState(Game* game);
 
     void OnEnter() override;
     void OnExit() override;
@@ -15,6 +15,5 @@ public:
     void Render() override;
 
 private: 
-    int _cursorPosition;
-    std::vector<rl::Texture2D> _texturesArray;
+
 };

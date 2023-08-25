@@ -1,9 +1,11 @@
 #include "MenuState.hpp"
+#include "globals.hpp"
 
 
-MenuState::MenuState()
+MenuState::MenuState(Game* game)
     : _cursorPosition(0),
-      _texturesArray()
+      _texturesArray(),
+      _game(game)
 {}
 
 
@@ -49,7 +51,7 @@ void MenuState::Update()
         switch(_cursorPosition)
         {
             case 0:
-                //_Start();   // <- mettre game state = 2
+                _game->StartGame();
                 break;
             case 1:
                 // 2 Players    // game state = 3
@@ -64,7 +66,7 @@ void MenuState::Update()
     }
 }
 
-void MenuState:Render()
+void MenuState::Render()
 {
     float scale = static_cast<float>(GAME_WIDTH) / static_cast<float>(_texturesArray[_cursorPosition].width);
     rl::DrawTextureEx(_texturesArray[_cursorPosition], {0.0f, 0.0f}, 0.0f, scale, rl::WHITE); 

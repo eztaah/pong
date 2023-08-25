@@ -1,7 +1,7 @@
 #include "GameOverState.hpp"
 
 
-GameOverState::GameOverState()
+GameOverState::GameOverState(Game* game)
 {}
 
 
@@ -17,8 +17,8 @@ void GameOverState::OnExit()
 
 void GameOverState::Update()
 {
-    if (rl::IsKeyDown(rl::KEY_SPACE))
-        //_Start();
+    // if (rl::IsKeyDown(rl::KEY_SPACE))
+    //     //_Start();
 }
 
 void GameOverState::Render()

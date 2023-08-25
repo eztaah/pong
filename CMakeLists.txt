@@ -13,9 +13,9 @@ include_directories(lib)
 include_directories(lib/my_raylib)
 include_directories(lib/my_raylib/raylib)
 include_directories(lib/interact_engine)
-include_directories(src/core/include)
-include_directories(src/states/include)    
-include_directories(src/entities/include)
+include_directories(src/core)
+include_directories(src/states)    
+include_directories(src/entities)
 include_directories(src/managers)
 
 # Link directories (where the .a or .lib files are located)
@@ -33,22 +33,21 @@ set(SOURCE_FILES
     src/globals.hpp 
     src/globals.cpp 
 
-    src/core/include/Game.hpp
-    src/core/src/Game.cpp
-    src/core/include/GameState.hpp
+    src/core/Game.hpp
+    src/core/Game.cpp
+    src/core/GameState.hpp
 
-    src/states/include/GameOverState.hpp
-    src/states/src/GameOverState.cpp
-    src/states/include/MenuState.hpp
-    src/states/src/MenuState.cpp
-    src/states/include/PlayingState.hpp
-    src/states/src/PlayingState.cpp
+    src/states/GameOverState.hpp
+    src/states/GameOverState.cpp
+    src/states/MenuState.hpp
+    src/states/MenuState.cpp
+    src/states/PlayingState.hpp
+    src/states/PlayingState.cpp
 
-
-    src/entities/include/Ball.hpp
-    src/entities/src/Ball.cpp
-    src/entities/include/Paddle.hpp
-    src/entities/src/Paddle.cpp
+    src/entities/Ball.hpp
+    src/entities/Ball.cpp
+    src/entities/Paddle.hpp
+    src/entities/Paddle.cpp
 
     src/managers/WindowManager.hpp
     src/managers/WindowManager.cpp

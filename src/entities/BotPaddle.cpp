@@ -1,4 +1,5 @@
 #include "BotPaddle.hpp"
+#include "interact_engine.hpp"
 
 
 BotPaddle::BotPaddle(const float positionX)
@@ -9,8 +10,8 @@ BotPaddle::BotPaddle(const float positionX)
 void BotPaddle::Update(const float botDefensePosition)
 {
     // Update paddle 2 position
-    if(_position.y + (_size.y / 2) < botDefensePosition)
+    if(_position.y < botDefensePosition)
         MoveDown();
-    if(_position.y + (_size.y / 2) > botDefensePosition)
+    if(_position.y > botDefensePosition)
         MoveUp();
 }

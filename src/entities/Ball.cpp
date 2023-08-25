@@ -8,7 +8,7 @@ Ball::Ball(const rl::Color& color)
       _size(GetReelValue(14.0f)),
       _position({0.0f, 0.0f}),
       _speedCoeff(1.0f),
-      _speed({GetReelValue(300.0f), GetReelValue(-200.0f)}),
+      _speed({GetReelValue(600.0f), GetReelValue(-300.0f)}),
       _color(color)
 {}
 
@@ -40,18 +40,23 @@ void Ball::HandleBounceLeft(const float mismatch)
     _position.x = 30.0f;
     _speed.x *= -1;     // bounce
 
-    _speedCoeff += 0.3;     // increase speed
+    _speedCoeff += 0.05;     // increase speed
+
+    if(mismatch <= 0)
+        _speed.y = -10 * abs(mismatch);
+    else 
+        _speed.y = 10 * abs(mismatch);
+}
+
+void Ball::HandleBounceRight(const float mismatch)
+{ 
+    _position.x = GAME_WIDTH - 30.0f - _size;
+    _speed.x *= -1;     // bounce
 
     if(mismatch <= 0)
         _speed.y = -5 * abs(mismatch);
     else 
         _speed.y = 5 * abs(mismatch);
-}
-
-void Ball::HandleBounceRight()
-{ 
-    _position.x = GAME_WIDTH - 30.0f - _size;
-    _speed.x *= -1;     // bounce
 }
 
 
@@ -91,7 +96,7 @@ void Ball::Reset()
 {
     _size = GetReelValue(14.0f);
     _position = {(GAME_WIDTH/2.0f) - (_size/2), (GAME_HEIGHT/2.0f) - (_size/2)};
-    _speed = {GetReelValue(300.0f), GetReelValue(-200.0f)};
+    _speed = {GetReelValue(600.0f), GetReelValue(-400.0f)};
     _speedCoeff = 1.0f;
 }
 

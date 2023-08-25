@@ -1,6 +1,7 @@
 #include "PlayingState.hpp"
 #include "globals.hpp"
 #include <string>
+#include <interact_engine.hpp>
 
 
 PlayingState::PlayingState(Game* game)    // WHen the game changes state
@@ -90,8 +91,6 @@ void PlayingState::_HandleCollisions()
     {
         _game->SetGameOverState();
     }
-    else if(_ball.GetRectangle().x >= GAME_WIDTH - 30.0f - _ball.GetRectangle().width)
-        _ball.HandleBounceRight();    // Prevent bot from losing
 
 
     // === Ball-Paddle1 collisions ===
@@ -112,10 +111,24 @@ void PlayingState::_HandleCollisions()
         };
     }
 
+    // === Ball-Paddle2 collisions ===
+    if(_ball.GetRectangle().x >= GAME_WIDTH - 30.0f - _ball.GetRectangle().width)
+    {
+        float mismatch;
+        mismatch = _ball.GetRectangle().y - _paddle2.GetRectangle().y - (_paddle2.GetRectangle().height / 2);
+        _ball.HandleBounceRight(mismatch);    // Prevent bot from losing
+        
+        _ghostBall.SetPosition({GAME_WIDTH - 35.0f, (GAME_HEIGHT / 2.0f) - (_ghostBall.GetSize() / 2.0f)});
+    }
+
+
     // === Ghost-ball right wall collision
     if(_ghostBall.GetPosition().x >= GAME_WIDTH - _ghostBall.GetSize() - 30.0f)
     {
         _ghostBall.Desactivate();
-        _botDefensePosition = _ghostBall.GetPosition().y + (_ghostBall.GetSize() / 2);
+        _ghostBall.SetPosition({_ghostBall.GetPosition().x - 5.0f, _ghostBall.GetPosition().y});
+        const float ghostBallPositionY = _ghostBall.GetPosition().y + (_ghostBall.GetSize() / 2);
+        float randomMismatch = ie::GetRandomNumber(0, _paddle2.GetRectangle().height);
+        _botDefensePosition = ghostBallPositionY - randomMismatch;
     }
 }

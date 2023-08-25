@@ -12,7 +12,7 @@ public:
     void HandleBounceTop();
     void HandleBounceBottom();
     void HandleBounceLeft(const float mismatch);
-    void HandleBounceRight();
+    void HandleBounceRight(const float mismatch);
 
     // === Accessors ===
     rl::Vector2 GetPosition() const;

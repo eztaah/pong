@@ -1,8 +1,9 @@
 #pragma once
 #include "libs.hpp"
-#include "Ball.hpp"
-#include "Paddle.hpp"
 #include <vector>
+#include <memory>
+
+#include "GameState.hpp"
 
 
 class Game
@@ -13,32 +14,18 @@ public:
     void Render();
     void Reset();
 
+    // === Games states ===
+    void SetMenuState();
+    void SetPlayingState();
+    void SetGameOverState();
+
+    // === Score ===
+    unsigned int GetScore() const;
+    void IncreaseScore();
+    void ResetScore();
+
 private:
-    void _HandleInputs();
-    void _HandleCollisions();
-    void _Start();
-
-    // === Update ===
-    void _UpdateStartMenu();
-    void _UpdateGame();
-    void _UpdateEndMenu();
-
-    // === Render ===
-    void _RenderStartMenu();
-    void _RenderGame();
-    void _RenderEndMenu();
-
-    Ball _ball;
-    Ball _ghostBall;
-    Paddle _paddle1;
-    Paddle _paddle2;
-
-    float _botDefensePosition;
-    std::vector<Ball*> _ballsArray;
-    bool _isGameOver;
+    void _ChangeState(std::unique_ptr<GameState> newState);
+    std::unique_ptr<GameState> _currentState;
     int unsigned _score;
-    int _state;
-    int _cursorPosition;
-    
-    std::vector<rl::Texture2D> _texturesArray;
 };

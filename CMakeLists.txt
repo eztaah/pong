@@ -53,6 +53,8 @@ set(SOURCE_FILES
 
     src/managers/WindowManager.hpp
     src/managers/WindowManager.cpp
+    src/managers/AudioManager.hpp
+    src/managers/AudioManager.cpp
 )
 
 # Set the location of the exe file that will be created

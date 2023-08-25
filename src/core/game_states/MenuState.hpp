@@ -4,6 +4,7 @@
 #include "libs.hpp"
 #include <memory>
 #include <vector>
+#include <raylib.hpp>
 
 
 class MenuState : public GameState
@@ -17,7 +18,13 @@ public:
     void Render() override;
 
 private: 
+    void _ManageKeyPressedMainMenu();
+    void _ManageKeyPressedSettings();
+
     Game* _game;
     int _cursorPosition;
-    std::vector<rl::Texture2D> _texturesArray;
+    int _state;
+
+    std::vector<rl::Texture2D> _mainMenuTextures;
+    std::vector<rl::Texture2D> _settingsTextures;
 };

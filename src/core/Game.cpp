@@ -6,13 +6,20 @@
 
 
 ///////////////// PUBLIC /////////////////
-Game::Game()
+Game::Game(WindowManager& window)
     : _currentState(std::make_unique<MenuState>(this)),
-      _score(0)
+      _score(0),
+      _audiomanager(),
+      _window(window)
 {
     // Setup current game state
     _currentState->OnEnter();
+
+    // Play music
+    _audiomanager.PlayMusic();
 }
+
+Game::~Game() {}
 
 void Game::Update()
 {
@@ -33,9 +40,9 @@ void Game::Render()
     rl::EndDrawing();
 }
 
-void Game::Reset()
-{
-    _ChangeState(std::make_unique<MenuState>(this));     // permet à game de passer sa propre instance à MenuState
+// === Window ===
+void Game::ToggleFullScreenWindow() {
+    _window.ManageFullScreen();
 }
 
 
@@ -64,6 +71,16 @@ void Game::IncreaseScore() {
 
 void Game::ResetScore() {
     _score = 0;
+}
+
+
+// === Music ===
+void Game::ToggleMusic()
+{
+    if(_audiomanager.IsMusicplaying())
+        _audiomanager.StopMusic();
+    else
+        _audiomanager.PlayMusic();
 }
 
 

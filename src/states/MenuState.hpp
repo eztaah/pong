@@ -1,9 +1,9 @@
 #pragma once
 #include "GameState.hpp"
+#include "Game.hpp"
 #include "libs.hpp"
 #include <memory>
 #include <vector>
-#include "Game.hpp"
 
 
 class MenuState : public GameState
@@ -17,7 +17,7 @@ public:
     void Render() override;
 
 private: 
+    Game* _game;
     int _cursorPosition;
     std::vector<rl::Texture2D> _texturesArray;
-    Game* _game;
 };

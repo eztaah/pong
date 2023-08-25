@@ -95,7 +95,7 @@ void PlayingState::_HandleCollisions()
     // === Ball-Horizontal-Border collisions ===
     if(_ball.GetRectangle().x <= 0.0f)
     {
-        _game->EndGame();
+        _game->SetGameOverState();
     }
     else if(_ball.GetRectangle().x >= GAME_WIDTH - 30.0f - _ball.GetRectangle().width)
         _ball.HandleBounceRight();    // Prevent bot from losing

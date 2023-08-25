@@ -3,9 +3,9 @@
 
 
 MenuState::MenuState(Game* game)
-    : _cursorPosition(0),
-      _texturesArray(),
-      _game(game)
+    : _game(game),
+      _cursorPosition(0),
+      _texturesArray()
 {}
 
 
@@ -51,16 +51,16 @@ void MenuState::Update()
         switch(_cursorPosition)
         {
             case 0:
-                _game->StartGame();
+                _game->SetPlayingState();
                 break;
             case 1:
-                // 2 Players    // game state = 3
+                // 2 Players
                 break;
             case 2:
                 // Settings
                 break;
             case 3:
-                // Exit
+                rl::CloseWindow();
                 break;
         }
     }

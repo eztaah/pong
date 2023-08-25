@@ -17,11 +17,10 @@ public:
     void Update() override;
     void Render() override;
 
-private: 
+private:
     void _HandleCollisions();
 
     Game* _game;
-
     Ball _ball;
     Ball _ghostBall;
     Paddle _paddle1;

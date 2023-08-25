@@ -23,7 +23,6 @@ void Game::Render()
 {
     rl::BeginDrawing();
     rl::ClearBackground(rl::BLACK);
-
     // Set up the drawing area
     rl::BeginScissorMode(MARGIN_X, MARGIN_Y, GAME_WIDTH, GAME_HEIGHT);
     rl::ClearBackground(rl::RAYWHITE);  // Fill the game area with green
@@ -39,18 +38,22 @@ void Game::Reset()
     _ChangeState(std::make_unique<MenuState>(this));     // permet à game de passer sa propre instance à MenuState
 }
 
-void Game::MenuGame() {
+
+// === Games states ===
+void Game::SetMenuState() {
     _ChangeState(std::make_unique<MenuState>(this));
 }
 
-void Game::StartGame() {
+void Game::SetPlayingState() {
     _ChangeState(std::make_unique<PlayingState>(this));     // Le constructeur de la classe playing state à besoin d'un pointeur vers l'instance de la classe game
 }
 
-void Game::EndGame() {
+void Game::SetGameOverState() {
     _ChangeState(std::make_unique<GameOverState>(this));
 }
 
+
+// === Score ===
 unsigned int Game::GetScore() const {
     return _score;
 }
@@ -62,7 +65,6 @@ void Game::IncreaseScore() {
 void Game::ResetScore() {
     _score = 0;
 }
-
 
 
 

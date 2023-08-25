@@ -14,10 +14,12 @@ public:
     void Render();
     void Reset();
 
-    void MenuGame();
-    void StartGame();
-    void EndGame();
+    // === Games states ===
+    void SetMenuState();
+    void SetPlayingState();
+    void SetGameOverState();
 
+    // === Score ===
     unsigned int GetScore() const;
     void IncreaseScore();
     void ResetScore();

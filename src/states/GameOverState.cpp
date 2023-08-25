@@ -3,7 +3,8 @@
 
 
 GameOverState::GameOverState(Game* game)
-    : _game(game)
+    : _game(game),
+     _texture()
 {}
 
 
@@ -20,7 +21,7 @@ void GameOverState::OnExit()
 void GameOverState::Update()
 {
     if (rl::IsKeyPressed(rl::KEY_SPACE) || rl::IsKeyPressed(rl::KEY_ENTER))
-        _game->MenuGame();
+        _game->SetMenuState();
 }
 
 void GameOverState::Render()

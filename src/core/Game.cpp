@@ -5,7 +5,7 @@
 #include "GameOverState.hpp"
 
 
-///////////////// PUBLIC /////////////////
+///////////////// PUBLIC ///////////////// 
 Game::Game(WindowManager& window)
     : _currentState(std::make_unique<MenuState>(this)),
       _score(0),

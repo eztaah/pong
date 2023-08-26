@@ -64,7 +64,7 @@ void PlayingState::Render()
     _paddle1.Render();
     _paddle2.Render();
     _ball.Render();
-    _ghostBall.Render();
+    //_ghostBall.Render();
 
     // === Draw score ===
     std::string scoreStr = std::to_string(_game->GetScore());   // Convert score to a string

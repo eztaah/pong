@@ -23,6 +23,8 @@ Game::~Game() {}
 
 void Game::Update()
 {
+    _audiomanager.Update();
+    
     _currentState->Update();
 }
 

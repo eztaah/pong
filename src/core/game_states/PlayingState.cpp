@@ -98,9 +98,8 @@ void PlayingState::_HandleCollisions()
     {
         if (rl::CheckCollisionRecs(_ball.GetRectangle(), _paddle1.GetRectangle()))
         {
-            float mismatch{_ball.GetRectangle().y - _paddle1.GetRectangle().y - (_paddle1.GetRectangle().height / 2)};
-
-            _ball.HandleBounceLeft(mismatch);
+            //float mismatch{_ball.GetRectangle().y - _paddle1.GetRectangle().y - (_paddle1.GetRectangle().height / 2)};
+            _ball.HandleBounceLeft();
 
             _game->IncreaseScore();
 
@@ -114,9 +113,8 @@ void PlayingState::_HandleCollisions()
     // === Ball-Paddle2 collisions ===
     if(_ball.GetRectangle().x >= GAME_WIDTH - 30.0f - _ball.GetRectangle().width)
     {
-        float mismatch;
-        mismatch = _ball.GetRectangle().y - _paddle2.GetRectangle().y - (_paddle2.GetRectangle().height / 2);
-        _ball.HandleBounceRight(mismatch);    // Prevent bot from losing
+        //mismatch = _ball.GetRectangle().y - _paddle2.GetRectangle().y - (_paddle2.GetRectangle().height / 2);
+        _ball.HandleBounceRight();    // Prevent bot from losing
         
         _ghostBall.SetPosition({GAME_WIDTH - 35.0f, (GAME_HEIGHT / 2.0f) - (_ghostBall.GetSize() / 2.0f)});
     }

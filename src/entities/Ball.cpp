@@ -35,28 +35,28 @@ void Ball::HandleBounceBottom()
     _speed.y *= -1;
 }
 
-void Ball::HandleBounceLeft(const float mismatch)
+void Ball::HandleBounceLeft()
 {
     _position.x = 30.0f;
     _speed.x *= -1;     // bounce
 
     _speedCoeff += 0.05;     // increase speed
 
-    if(mismatch <= 0)
-        _speed.y = -10 * abs(mismatch);
-    else 
-        _speed.y = 10 * abs(mismatch);
+    // if(mismatch <= 0)
+    //     _speed.y = -10 * abs(mismatch);
+    // else 
+    //     _speed.y = 10 * abs(mismatch);
 }
 
-void Ball::HandleBounceRight(const float mismatch)
+void Ball::HandleBounceRight()
 { 
     _position.x = GAME_WIDTH - 30.0f - _size;
     _speed.x *= -1;     // bounce
 
-    if(mismatch <= 0)
-        _speed.y = -5 * abs(mismatch);
-    else 
-        _speed.y = 5 * abs(mismatch);
+    // if(mismatch <= 0)
+    //     _speed.y = -5 * abs(mismatch);
+    // else 
+    //     _speed.y = 5 * abs(mismatch);
 }
 
 

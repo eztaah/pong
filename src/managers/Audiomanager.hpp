@@ -5,11 +5,13 @@ public:
     AudioManager();
     ~AudioManager();
 
+    void Update();
+
     bool IsMusicplaying() const;
 
     void PlayMusic();
     void StopMusic();
 
 private:
-    Sound _backgroundMusic;
+    Music _backgroundMusic;
 };

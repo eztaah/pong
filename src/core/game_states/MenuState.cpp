@@ -17,16 +17,16 @@ void MenuState::OnEnter()
 
     // === Load textures ===
     // Main menu textures
-    _mainMenuTextures.push_back(rl::LoadTexture("../assets/textures/daymode/main_menu_0.png"));
-    _mainMenuTextures.push_back(rl::LoadTexture("../assets/textures/daymode/main_menu_1.png"));
-    _mainMenuTextures.push_back(rl::LoadTexture("../assets/textures/daymode/main_menu_2.png"));
-    _mainMenuTextures.push_back(rl::LoadTexture("../assets/textures/daymode/main_menu_3.png"));
-    _mainMenuTextures.push_back(rl::LoadTexture("../assets/textures/daymode/2_players_mode_coming_soon.png"));
+    _mainMenuTextures.push_back(rl::LoadTexture("../assets/textures/main_menu_0.png"));
+    _mainMenuTextures.push_back(rl::LoadTexture("../assets/textures/main_menu_1.png"));
+    _mainMenuTextures.push_back(rl::LoadTexture("../assets/textures/main_menu_2.png"));
+    _mainMenuTextures.push_back(rl::LoadTexture("../assets/textures/main_menu_3.png"));
+    _mainMenuTextures.push_back(rl::LoadTexture("../assets/textures/2_players_mode_coming_soon.png"));
     // Settings textures
-    _settingsTextures.push_back(rl::LoadTexture("../assets/textures/daymode/setting_menu_0.png"));
-    _settingsTextures.push_back(rl::LoadTexture("../assets/textures/daymode/setting_menu_1.png"));
-    _settingsTextures.push_back(rl::LoadTexture("../assets/textures/daymode/setting_menu_2.png"));
-    _settingsTextures.push_back(rl::LoadTexture("../assets/textures/daymode/setting_menu_3.png"));
+    _settingsTextures.push_back(rl::LoadTexture("../assets/textures/setting_menu_0.png"));
+    _settingsTextures.push_back(rl::LoadTexture("../assets/textures/setting_menu_1.png"));
+    _settingsTextures.push_back(rl::LoadTexture("../assets/textures/setting_menu_2.png"));
+    _settingsTextures.push_back(rl::LoadTexture("../assets/textures/setting_menu_3.png"));
 }
 
 void MenuState::OnExit()

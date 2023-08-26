@@ -11,8 +11,8 @@ public:
     virtual void Update();
     void HandleBounceTop();
     void HandleBounceBottom();
-    void HandleBounceLeft(const float mismatch);
-    void HandleBounceRight(const float mismatch);
+    void HandleBounceLeft();
+    void HandleBounceRight();
 
     // === Accessors ===
     rl::Vector2 GetPosition() const;

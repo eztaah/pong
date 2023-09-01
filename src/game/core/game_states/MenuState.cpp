@@ -17,13 +17,13 @@ void MenuState::OnEnter()
 
     // === Load textures ===
     // Main menu textures
-    _mainMenuTextures.push_back(rl::LoadTexture("./textures/main-menu-0.png"));
-    _mainMenuTextures.push_back(rl::LoadTexture("./textures/main-menu-1.png"));
-    _mainMenuTextures.push_back(rl::LoadTexture("./textures/main-menu-2.png"));
+    _mainMenuTextures.push_back(LoadTexture("./textures/main-menu-0.png"));
+    _mainMenuTextures.push_back(LoadTexture("./textures/main-menu-1.png"));
+    _mainMenuTextures.push_back(LoadTexture("./textures/main-menu-2.png"));
     // Settings textures
-    _settingsTextures.push_back(rl::LoadTexture("./textures/settings-0.png"));
-    _settingsTextures.push_back(rl::LoadTexture("./textures/settings-1.png"));
-    _settingsTextures.push_back(rl::LoadTexture("./textures/settings-2.png"));
+    _settingsTextures.push_back(LoadTexture("./textures/settings-0.png"));
+    _settingsTextures.push_back(LoadTexture("./textures/settings-1.png"));
+    _settingsTextures.push_back(LoadTexture("./textures/settings-2.png"));
 }
 
 void MenuState::OnExit()
@@ -36,14 +36,14 @@ void MenuState::OnExit()
 void MenuState::Update()
 {
     // Move cursor
-    if (rl::IsKeyPressed(rl::KEY_UP) || rl::IsKeyPressed(rl::KEY_W))
+    if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
     {
         if(_cursorPosition == 0)
             _cursorPosition = 2;
         else
             _cursorPosition -= 1;
     }
-    if (rl::IsKeyPressed(rl::KEY_DOWN) || rl::IsKeyPressed(rl::KEY_S))
+    if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S))
     {
         if(_cursorPosition == 2)
             _cursorPosition = 0;
@@ -52,7 +52,7 @@ void MenuState::Update()
     }
 
     // If key pressed
-    if (rl::IsKeyPressed(rl::KEY_SPACE) || rl::IsKeyPressed(rl::KEY_ENTER))
+    if (IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER))
     {
         if(_state == 0)
             _ManageKeyPressedMainMenu();
@@ -66,11 +66,11 @@ void MenuState::Render()
     if(_state == 0)
     {
         float scale = static_cast<float>(GAME_WIDTH) / static_cast<float>(_mainMenuTextures[_cursorPosition].width);
-        rl::DrawTextureEx(_mainMenuTextures[_cursorPosition], {0.0f, 0.0f}, 0.0f, scale, rl::WHITE); 
+        DrawTextureEx(_mainMenuTextures[_cursorPosition], {0.0f, 0.0f}, 0.0f, scale, WHITE); 
     } else if(_state == 1) 
     {
         float scale = static_cast<float>(GAME_WIDTH) / static_cast<float>(_settingsTextures[_cursorPosition].width);
-        rl::DrawTextureEx(_settingsTextures[_cursorPosition], {0.0f, 0.0f}, 0.0f, scale, rl::WHITE); 
+        DrawTextureEx(_settingsTextures[_cursorPosition], {0.0f, 0.0f}, 0.0f, scale, WHITE); 
     }
 }
 
@@ -87,8 +87,8 @@ void MenuState::_ManageKeyPressedMainMenu()
             _state = 1;
             break;
         case 2:
-            rl::CloseWindow();
-            break;
+            CloseWindow();
+            exit(EXIT_SUCCESS);
     }
 }
 

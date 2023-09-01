@@ -10,7 +10,7 @@ Paddle::Paddle(const float positionX)
 
 
 // === Accessors ===
-rl::Vector2 Paddle::GetPosition() const {
+Vector2 Paddle::GetPosition() const {
     return _position;
 }
 
@@ -18,7 +18,7 @@ float Paddle::GetSpeed() const {
     return _speed;
 }
 
-rl::Rectangle Paddle::GetRectangle() const {
+Rectangle Paddle::GetRectangle() const {
     return {_position.x, _position.y, _size.x, _size.y};
 }
 
@@ -27,23 +27,23 @@ rl::Rectangle Paddle::GetRectangle() const {
 void Paddle::Update()
 {
     // Update paddle 1 position
-    if (rl::IsKeyDown(rl::KEY_W) || rl::IsKeyDown(rl::KEY_UP))   // Raylib assumes that your keyboard is QWERTY, here KEY_W means KEY_Z on AZERTY keyboard
+    if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP))   // Raylib assumes that your keyboard is QWERTY, here KEY_W means KEY_Z on AZERTY keyboard
         MoveUp();
-    if (rl::IsKeyDown(rl::KEY_S) || rl::IsKeyDown(rl::KEY_DOWN))
+    if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN))
         MoveDown();
 }
 
 
 // === Mutators ===
-void Paddle::SetPosition(const rl::Vector2& newPosition) {
+void Paddle::SetPosition(const Vector2& newPosition) {
     _position.x = newPosition.x;
     _position.y = newPosition.y;
 }
 
 void Paddle::MoveUp() {
     // Vérifie si le paddle atteint le bord supérieur de l'écran
-    if (_position.y - _speed * rl::GetFrameTime() > 10.0f) {
-        _position.y -= _speed * rl::GetFrameTime();
+    if (_position.y - _speed * GetFrameTime() > 10.0f) {
+        _position.y -= _speed * GetFrameTime();
     } else {
         _position.y = 10.0f;
     }
@@ -51,8 +51,8 @@ void Paddle::MoveUp() {
 
 void Paddle::MoveDown() {
     // Vérifie si le paddle atteint le bord inférieur de l'écran
-    if (_position.y + _size.y + _speed * rl::GetFrameTime() < WINDOW_HEIGHT - 10.0f) {
-        _position.y += _speed * rl::GetFrameTime();
+    if (_position.y + _size.y + _speed * GetFrameTime() < WINDOW_HEIGHT - 10.0f) {
+        _position.y += _speed * GetFrameTime();
     } else {
         _position.y = WINDOW_HEIGHT - _size.y - 10.0f;
     }
@@ -71,5 +71,5 @@ void Paddle::Reset(const float positionX)
 
 // === Rendering ===
 void Paddle::Render() const {
-    rl::DrawRectangle(_position.x, _position.y, _size.x, _size.y, rl::BLACK);
+    DrawRectangle(_position.x, _position.y, _size.x, _size.y, BLACK);
 }

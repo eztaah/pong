@@ -1,16 +1,16 @@
 #include "WindowManager.hpp"
 #include "globals.hpp"
-#include "libs.hpp"
+#include "raylib.hpp"
 #include <iostream>
 
 
 WindowManager::WindowManager(int width, int height, const char* title) 
 {
-    rl::SetConfigFlags(rl::FLAG_WINDOW_RESIZABLE);
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     WINDOW_WIDTH = width;
     WINDOW_HEIGHT = height;
-    rl::InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, title);
-    rl::SetWindowState(rl::FLAG_VSYNC_HINT);
+    InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, title);
+    SetWindowState(FLAG_VSYNC_HINT);
     GAME_WIDTH = WINDOW_WIDTH;
     GAME_HEIGHT = WINDOW_HEIGHT;
     MARGIN_X = 0;
@@ -18,7 +18,7 @@ WindowManager::WindowManager(int width, int height, const char* title)
 }
 
 WindowManager::~WindowManager() {
-    rl::CloseWindow();
+    CloseWindow();
 }
 
 
@@ -43,20 +43,20 @@ void WindowManager::ManageWindowResizing(int newWidth, int newHeight) {
 
 void WindowManager::ManageFullScreen()
 {
-    if(rl::IsWindowFullscreen())
+    if(IsWindowFullscreen())
     {
-        rl::ToggleFullscreen();
-        rl::SetWindowSize(1366, 768);
+        ToggleFullscreen();
+        SetWindowSize(1366, 768);
         ManageWindowResizing(1366, 768);   // Gère la redimention de la fenetre de jeu
     }
     else
     {
-        int currentMonitor = rl::GetCurrentMonitor();
-        int monitorWidth = rl::GetMonitorWidth(currentMonitor);
-        int monitorHeight = rl::GetMonitorHeight(currentMonitor);
+        int currentMonitor = GetCurrentMonitor();
+        int monitorWidth = GetMonitorWidth(currentMonitor);
+        int monitorHeight = GetMonitorHeight(currentMonitor);
         
-        rl::SetWindowSize(monitorWidth, monitorHeight);
+        SetWindowSize(monitorWidth, monitorHeight);
         ManageWindowResizing(monitorWidth, monitorHeight);    // Gère la redimention de la fenetre de jeu
-        rl::ToggleFullscreen();
+        ToggleFullscreen();
     }
 }

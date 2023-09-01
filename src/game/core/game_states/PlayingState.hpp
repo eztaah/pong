@@ -1,6 +1,6 @@
 #pragma once
 #include "GameState.hpp"
-#include "libs.hpp"
+#include "raylib.hpp"
 #include "Ball.hpp"
 #include "Paddle.hpp"
 #include "BotPaddle.hpp"

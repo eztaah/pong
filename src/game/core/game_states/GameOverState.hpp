@@ -1,6 +1,6 @@
 #pragma once
 #include "GameState.hpp"
-#include "libs.hpp"
+#include "raylib.hpp"
 #include "Game.hpp"
 
 
@@ -16,5 +16,5 @@ public:
 
 private: 
     Game* _game;
-    rl::Texture2D _texture;
+    Texture2D _texture;
 };

@@ -1,11 +1,11 @@
 #pragma once
-#include <libs.hpp>
+#include <raylib.hpp>
 
 
 class Ball
 {
 public:
-    Ball(const rl::Color& color);
+    Ball(const Color& color);
 
     // === Movmement & Logic ===
     virtual void Update();
@@ -15,15 +15,15 @@ public:
     void HandleBounceRight();
 
     // === Accessors ===
-    rl::Vector2 GetPosition() const;
-    rl::Vector2 GetSpeed() const;
+    Vector2 GetPosition() const;
+    Vector2 GetSpeed() const;
     float GetSize() const;
-    rl::Rectangle GetRectangle() const;
+    Rectangle GetRectangle() const;
     bool IsActive() const;
 
     // === Mutators ===
-    void SetPosition(const rl::Vector2& newPosition);
-    void SetSpeed(const rl::Vector2& newSpeed);
+    void SetPosition(const Vector2& newPosition);
+    void SetSpeed(const Vector2& newSpeed);
     void Reset();
     void Activate();
     void Desactivate();
@@ -34,8 +34,8 @@ public:
 private:
     bool _isActive;
     float _size;
-    rl::Vector2 _position;
+    Vector2 _position;
     float _speedCoeff;
-    rl::Vector2 _speed;
-    rl::Color _color;
+    Vector2 _speed;
+    Color _color;
 };

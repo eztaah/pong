@@ -1,7 +1,7 @@
 #pragma once
 #include "GameState.hpp"
 #include "Game.hpp"
-#include "libs.hpp"
+#include "raylib.hpp"
 #include <memory>
 #include <vector>
 #include <raylib.hpp>
@@ -25,6 +25,6 @@ private:
     int _cursorPosition;
     int _state;
 
-    std::vector<rl::Texture2D> _mainMenuTextures;
-    std::vector<rl::Texture2D> _settingsTextures;
+    std::vector<Texture2D> _mainMenuTextures;
+    std::vector<Texture2D> _settingsTextures;
 };

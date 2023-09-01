@@ -1,13 +1,26 @@
 #include "PlayingState.hpp"
 #include "globals.hpp"
 #include <string>
-#include <interact_engine.hpp>
+#include <random>
+
+////////////// UTILS /////////////////
+int GetRandomNumber(int min, int max)
+{
+    // static is used to instantiate the random engine and distribution once only.
+    // It then generates a new random number on subsequent calls.
+    static std::random_device rd;
+    static std::mt19937 eng(rd());
+    std::uniform_int_distribution<> distr(min, max);
+
+    return distr(eng);
+}
+
 
 
 PlayingState::PlayingState(Game* game)    // WHen the game changes state
     : _game(game),
-      _ball(rl::BLACK),
-      _ghostBall(rl::RED),
+      _ball(BLACK),
+      _ghostBall(RED),
       _paddle1(30.0f),
       _paddle2(GAME_WIDTH - 30.0f),
       _ballsArray()
@@ -68,7 +81,7 @@ void PlayingState::Render()
 
     // === Draw score ===
     std::string scoreStr = std::to_string(_game->GetScore());   // Convert score to a string
-    rl::DrawText(scoreStr.c_str(), GetReelValue(670.0f), GetReelValue(20.0f), GetReelValue(40.0f), rl::BLACK);     // Display the score
+    DrawText(scoreStr.c_str(), GetReelValue(670.0f), GetReelValue(20.0f), GetReelValue(40.0f), BLACK);     // Display the score
 }
 
 
@@ -96,7 +109,7 @@ void PlayingState::_HandleCollisions()
     // === Ball-Paddle1 collisions ===
     if (_ball.GetSpeed().x < 0.0f)     // Here the ball will go into the paddle1
     {
-        if (rl::CheckCollisionRecs(_ball.GetRectangle(), _paddle1.GetRectangle()))
+        if (CheckCollisionRecs(_ball.GetRectangle(), _paddle1.GetRectangle()))
         {
             //float mismatch{_ball.GetRectangle().y - _paddle1.GetRectangle().y - (_paddle1.GetRectangle().height / 2)};
             _ball.HandleBounceLeft();
@@ -126,7 +139,7 @@ void PlayingState::_HandleCollisions()
         _ghostBall.Desactivate();
         _ghostBall.SetPosition({_ghostBall.GetPosition().x - 5.0f, _ghostBall.GetPosition().y});
         const float ghostBallPositionY = _ghostBall.GetPosition().y + (_ghostBall.GetSize() / 2);
-        float randomMismatch = ie::GetRandomNumber(0, _paddle2.GetRectangle().height);
+        float randomMismatch = GetRandomNumber(0, _paddle2.GetRectangle().height);
         _botDefensePosition = ghostBallPositionY - randomMismatch;
     }
 }

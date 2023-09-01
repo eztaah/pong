@@ -30,16 +30,16 @@ void Game::Update()
 
 void Game::Render()
 {
-    rl::BeginDrawing();
-    rl::ClearBackground(rl::BLACK);
+    BeginDrawing();
+    ClearBackground(BLACK);
     // Set up the drawing area
-    rl::BeginScissorMode(MARGIN_X, MARGIN_Y, GAME_WIDTH, GAME_HEIGHT);
-    rl::ClearBackground(rl::RAYWHITE);  // Fill the game area with green
+    BeginScissorMode(MARGIN_X, MARGIN_Y, GAME_WIDTH, GAME_HEIGHT);
+    ClearBackground(RAYWHITE);  // Fill the game area with green
 
     _currentState->Render();
 
-    rl::EndScissorMode();
-    rl::EndDrawing();
+    EndScissorMode();
+    EndDrawing();
 }
 
 // === Window ===

@@ -32,5 +32,5 @@ void GameOverState::Render()
 
     // Draw score
     std::string scoreStr = std::to_string(_game->GetScore());   // Convert score to a string
-    DrawText(scoreStr.c_str(), (GAME_WIDTH / 2) + GetReelValue(-10.0f), GetReelValue(430.0f), GetReelValue(50.0f), BLACK);     // Display the score
+    DrawText(scoreStr.c_str(), (GAME_WIDTH / 2) + GetReelValue(80.0f), GetReelValue(343.0f), GetReelValue(40.0f), BLACK);     // Display the score
 }

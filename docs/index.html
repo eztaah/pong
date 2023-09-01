@@ -2,39 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>download pong</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 2em;
-        }
-        video {
-            width: 50%;
-            height: auto;
-            margin-bottom: 1em;
-        }
-    </style>
+    <title>pong</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
-    <h1>download pong here</h1>
-  
-    <p>gameplay</p>
-  
-    <!-- Vidéo de Gameplay -->
-    <video controls>
-        <source src="https://github.com/EzTaah/competitive-pong/raw/main/docs/gameplay.mp4" type="video/mp4">
-        error
-    </video>
+    <h1 class="title">pong</h1>
+
+    <!-- Description -->
+    <p class="description" id="top-description">
+        "A classic Pong game where your goal is to score as high as possible against an unbeatable bot."<br><br>
     
-  
-    <p>download</p>
-  
-    <!-- Lien de Téléchargement -->
+        Use 'Z', 'S' and 'space' keys to move inside the menu.
+    </p>
+
+
+    <!-- Download button -->
     <a href="https://github.com/EzTaah/competitive-pong/releases/download/test/Hypersomnia-for-Windows.3.zip">
-        <button style="font-size: larger; padding: 10px 20px;">download</button>
+        <button class="download-button">Download</button>
     </a>
 
+
+    <!-- Gameplay Video -->
+    <div class="gameplay-box">
+
+        <p class="subtitle">Gameplay</p>
+
+        <video controls autoplay loop class="video">
+            <source src="https://github.com/EzTaah/competitive-pong/raw/main/docs/gameplay2.mp4" type="video/mp4">
+            Error
+        </video>
+    </div>
+
+
+    <!-- Description -->
+    <p class="description" id="bottom">
+        Made using C++ and the <a href="https://www.raylib.com/">Raylib</a> graphics library.
+    </p>
+
+
+    <!-- Download button -->
+    <a href="https://github.com/EzTaah/competitive-pong/releases/download/test/Hypersomnia-for-Windows.3.zip">
+        <button class="github-button">view source code</button>
+    </a>
 </body>
 </html>

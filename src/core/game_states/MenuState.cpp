@@ -17,16 +17,13 @@ void MenuState::OnEnter()
 
     // === Load textures ===
     // Main menu textures
-    _mainMenuTextures.push_back(rl::LoadTexture("../assets/textures/main_menu_0.png"));
-    _mainMenuTextures.push_back(rl::LoadTexture("../assets/textures/main_menu_1.png"));
-    _mainMenuTextures.push_back(rl::LoadTexture("../assets/textures/main_menu_2.png"));
-    _mainMenuTextures.push_back(rl::LoadTexture("../assets/textures/main_menu_3.png"));
-    _mainMenuTextures.push_back(rl::LoadTexture("../assets/textures/2_players_mode_coming_soon.png"));
+    _mainMenuTextures.push_back(rl::LoadTexture("./textures/main-menu-0.png"));
+    _mainMenuTextures.push_back(rl::LoadTexture("./textures/main-menu-1.png"));
+    _mainMenuTextures.push_back(rl::LoadTexture("./textures/main-menu-2.png"));
     // Settings textures
-    _settingsTextures.push_back(rl::LoadTexture("../assets/textures/setting_menu_0.png"));
-    _settingsTextures.push_back(rl::LoadTexture("../assets/textures/setting_menu_1.png"));
-    _settingsTextures.push_back(rl::LoadTexture("../assets/textures/setting_menu_2.png"));
-    _settingsTextures.push_back(rl::LoadTexture("../assets/textures/setting_menu_3.png"));
+    _settingsTextures.push_back(rl::LoadTexture("./textures/settings-0.png"));
+    _settingsTextures.push_back(rl::LoadTexture("./textures/settings-1.png"));
+    _settingsTextures.push_back(rl::LoadTexture("./textures/settings-2.png"));
 }
 
 void MenuState::OnExit()
@@ -42,13 +39,13 @@ void MenuState::Update()
     if (rl::IsKeyPressed(rl::KEY_UP) || rl::IsKeyPressed(rl::KEY_W))
     {
         if(_cursorPosition == 0)
-            _cursorPosition = 3;
+            _cursorPosition = 2;
         else
             _cursorPosition -= 1;
     }
     if (rl::IsKeyPressed(rl::KEY_DOWN) || rl::IsKeyPressed(rl::KEY_S))
     {
-        if(_cursorPosition == 3)
+        if(_cursorPosition == 2)
             _cursorPosition = 0;
         else
             _cursorPosition += 1;
@@ -61,8 +58,6 @@ void MenuState::Update()
             _ManageKeyPressedMainMenu();
         else if(_state == 1)
             _ManageKeyPressedSettings();
-        else
-            _state = 0;
     }
 }
 
@@ -76,10 +71,6 @@ void MenuState::Render()
     {
         float scale = static_cast<float>(GAME_WIDTH) / static_cast<float>(_settingsTextures[_cursorPosition].width);
         rl::DrawTextureEx(_settingsTextures[_cursorPosition], {0.0f, 0.0f}, 0.0f, scale, rl::WHITE); 
-    } else if(_state == -1)
-    {
-        float scale = static_cast<float>(GAME_WIDTH) / static_cast<float>(_mainMenuTextures[4].width);
-        rl::DrawTextureEx(_mainMenuTextures[4], {0.0f, 0.0f}, 0.0f, scale, rl::WHITE);  
     }
 }
 
@@ -93,12 +84,9 @@ void MenuState::_ManageKeyPressedMainMenu()
             _game->SetPlayingState();
             break;
         case 1:
-            _state = -1;
-            break;
-        case 2:
             _state = 1;
             break;
-        case 3:
+        case 2:
             rl::CloseWindow();
             break;
     }
@@ -115,9 +103,6 @@ void MenuState::_ManageKeyPressedSettings()
             _game->ToggleMusic();
             break;
         case 2:
-            // Night mode
-            break;
-        case 3:
             _state = 0;
             break;
     }

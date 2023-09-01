@@ -9,25 +9,25 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Include directories, CMake will inform the compiler to also look in this directory when resolving #include directives.
 include_directories(src)
-include_directories(lib)
-include_directories(lib/my_raylib)
-include_directories(lib/my_raylib/raylib)
-include_directories(lib/interact_engine)
+include_directories(src/lib)
+include_directories(src/lib/my_raylib)
+include_directories(src/lib/my_raylib/raylib)
+include_directories(src/lib/interact_engine)
 include_directories(src/core)
 include_directories(src/core/game_states)    
 include_directories(src/entities)
 include_directories(src/managers)
 
 # Link directories (where the .a or .lib files are located)
-link_directories(lib/my_raylib/raylib)
+link_directories(src/lib/my_raylib/raylib)
 
 # Source files 
 set(SOURCE_FILES
-    lib/libs.hpp
-    lib/interact_engine/interact_engine.cpp
-    lib/interact_engine/interact_engine.hpp
-    lib/my_raylib/my_raylib.cpp
-    lib/my_raylib/my_raylib.hpp
+    src/lib/libs.hpp
+    src/lib/interact_engine/interact_engine.cpp
+    src/lib/interact_engine/interact_engine.hpp
+    src/lib/my_raylib/my_raylib.cpp
+    src/lib/my_raylib/my_raylib.hpp
 
     src/main.cpp 
     src/globals.hpp 
@@ -57,17 +57,30 @@ set(SOURCE_FILES
     src/managers/AudioManager.cpp
 )
 
-# Set the location of the exe file that will be created
-add_executable(debug ${SOURCE_FILES})     # <- this is the target
 
-# add dll files inside the executable
-target_link_options(debug PRIVATE -static -static-libstdc++ -static-libgcc)
+##############
 
-# Link to all the needed library
-target_link_libraries(debug raylib opengl32 gdi32 winmm)
+# Spécifiez où les binaires doivent être créés
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
 
-# compiler compiler flags 
-target_compile_options(debug PRIVATE -Wall -Wextra)
+# Set compiler options for Debug build
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    # Indique quels sont les fichiers à compiler
+    add_executable(debug ${SOURCE_FILES})     # <- this is the target
 
+    # add dll files inside the executable
+    target_link_options(debug PRIVATE -static -static-libstdc++ -static-libgcc)
+
+    target_compile_options(debug PRIVATE -Wall -Wextra -g)
+    # -g: Cela permet au débogueur de montrer des valeurs de variable, de naviguer dans le code source.
+
+    # Relie les différentes libraries à l'executable
+    target_link_libraries(debug raylib opengl32 gdi32 winmm)
+
+
+endif()
+
+
+#RELEASE
 #compiler linker flags
-set_target_properties(debug PROPERTIES LINK_FLAGS "-mwindows")
+# set_target_properties(debug PROPERTIES LINK_FLAGS "-mwindows")

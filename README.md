@@ -10,7 +10,7 @@ Use `Z`, `S` and `Space` keys to move inside the menu.
 
 ## Download the game
 
-<a href="ttps://github.com/EzTaah/pong/releases/download/v1.1/pong-for-windows.zip"> <img src="https://github.com/EzTaah/pong/blob/main/datasrc/assets/logo/logo.png?raw=true" height=70 hspace=1> </a>
+<a href="ttps://github.com/EzTaah/pong/releases/download/v1.1/pong-for-windows.zip"> <img src="https://github.com/EzTaah/pong/blob/main/docs/assets/windows.png?raw=true" height=70 hspace=1> </a>
 <br undefined>
 <br undefined>
 <br undefined>

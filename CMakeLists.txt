@@ -56,7 +56,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_link_libraries(debug PRIVATE raylib opengl32 gdi32 winmm) # Indicate which library we need
 
     # Add compilation options
-    target_compile_options(debug PRIVATE -Wall -Wextra -g) # -g -> give informations to the debuger
+    target_compile_options(debug PRIVATE -Wall -Wextra -g) # -g -> give informations to the debugger
 endif()
 ########################################################################
 

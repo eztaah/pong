@@ -1,47 +1,33 @@
-# Competitive Pong
+<div align="center">
 
-A competitive pong game.
+Pong
+=========
+"A classic Pong game where your goal is to score as high as possible against an unbeatable bot."
 
-### Controls
-- Use `Z` to move up and `S` to move down.
-- Press `space` to confirm
+Use `Z`, `S` and `Space` keys to move inside the menu.
+
+
+
+## Download the game
+
+<a href="ttps://github.com/EzTaah/pong/releases/download/v1.1/pong-for-windows.zip"> <img src="https://github.com/EzTaah/pong/blob/main/datasrc/assets/logo/logo.png?raw=true" height=70 hspace=1> </a>
+<br undefined>
+<br undefined>
+<br undefined>
+<br undefined>
+</div>
 
 ---
 
-# Building and Development
+# Building on Windows with MinGW & CMake
 
-## Informations
-- Game developed using the [Raylib](https://www.raylib.com/) library.
+Open a PowerShell terminal and navigate to the project's directory.
+Next, run these commands
 
-## Prerequisites
-- Ensure you have a compiler installed on your computer.
-- There's no need to install Raylib separately. It is already precompiled and stored in the 'lib' folder.
-
-## Compilation instructions
-
-1. Open a PowerShell/cmd terminal and navigate to the project's directory.
-
-2. Create a build directory : 
 ```
 mkdir build
-```
-
-3. Navigate to the build directory : 
-```
 cd build 
-```
-
-4. Generate the makefiles:
-```
-cmake -G "MinGW Makefiles" ..
-```
-
-5. Compile the project : (assuming that you use the minGW compiler)   
-``` 
+cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug ..
 mingw32-make 
 ```
-
-5. Run the game :   
-```
-.\debug.exe
-```
+ 

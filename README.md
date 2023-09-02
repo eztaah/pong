@@ -3,7 +3,7 @@
 Pong
 =========
 
-"A classic Pong game where your goal is to score as high as possible against an unbeatable bot."  
+"A classic Pong game where your goal is to score as high as possible against an unbeatable bot."
 Use `Z`, `S` and `Space` keys to move inside the menu.
 
 <br undefined>
@@ -14,12 +14,12 @@ Made with the C++ programming language and the [raylib](https://www.raylib.com/)
 
 ## Download the game
 
-<a href="https://github.com/EzTaah/pong/releases/download/v1.1/pong-for-windows.zip"> <img src="https://github.com/EzTaah/pong/blob/main/docs/assets/windows.png?raw=true" height=70 hspace=1> </a>
+<a href="https://github.com/EzTaah/pong/releases/download/v1.1/pong-for-windows.zip"> <img src="https://github.com/EzTaah/pong/blob/main/docs/other/windows.png?raw=true" height=70 hspace=1> </a>
 <br undefined>
 <br undefined>
 <br undefined>
 </div>
-<>
+
 ---
 
 # Building and Development

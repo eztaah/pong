@@ -3,7 +3,7 @@
 Pong
 =========
 
-"A classic Pong game where your goal is to score as high as possible against an unbeatable bot."
+"A classic Pong game where your goal is to score as high as possible against an unbeatable bot."  
 Use `Z`, `S` and `Space` keys to move inside the menu.
 
 <br undefined>

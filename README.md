@@ -8,7 +8,7 @@ Use `Z`, `S` and `Space` keys to move inside the menu.
 
 <br undefined>
 
-Built with the C++ programming language and the [raylib](https://www.raylib.com/) graphics library. 
+Made with the C++ programming language and the [raylib](https://www.raylib.com/) graphics library. 
 
 <br undefined>
 

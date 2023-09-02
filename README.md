@@ -2,11 +2,15 @@
 
 Pong
 =========
-"A classic Pong game where your goal is to score as high as possible against an unbeatable bot."
 
+"A classic Pong game where your goal is to score as high as possible against an unbeatable bot."
 Use `Z`, `S` and `Space` keys to move inside the menu.
 
+<br undefined>
 
+Built with the C++ programming language and the [Raylib](https://www.raylib.com/) graphics library. 
+
+<br undefined>
 
 ## Download the game
 
@@ -14,20 +18,49 @@ Use `Z`, `S` and `Space` keys to move inside the menu.
 <br undefined>
 <br undefined>
 <br undefined>
-<br undefined>
 </div>
 
 ---
 
-# Building on Windows with MinGW & CMake
+# Building and Development
 
-Open a PowerShell terminal and navigate to the project's directory.
-Next, run these commands
+**This game was built on Windows with [CMake](https://cmake.org/download/) and the [MinGW](https://winlibs.com/) compiler.**
 
+<br undefined>
+
+**Here are the compilation instructions :**
+
+
+1. Open a PowerShell terminal and navigate to the project's directory.
+
+2. Create a build directory : 
 ```
 mkdir build
+```
+
+3. Navigate to the build directory : 
+```
 cd build 
+```
+
+4. Generate the makefiles (Choose between the debug and the release version) :
+```
 cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug ..
+```
+```
+cmake -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release ..
+```
+
+5. Compile the project :
+``` 
 mingw32-make 
+```
+
+5. Run the game (Choose between the debug and the release version) :   
+```
+.\debug.exe
+```
+```
+.\release.exe
 ```
  

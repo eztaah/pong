@@ -10,7 +10,7 @@ GameOverState::GameOverState(Game* game)
 
 void GameOverState::OnEnter()
 {
-    _texture = LoadTexture("./textures/game-over.png");
+    _texture = LoadTexture("./assets/textures/game-over.png");
 }
 
 void GameOverState::OnExit()

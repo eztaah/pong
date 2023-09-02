@@ -38,17 +38,15 @@ set(INCLUDE_DIRS
     src/game/managers
 )
 
-
 # Output directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
-
 
 
 
 ################################ DEBUG ################################
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     # Create the executable from the sources files
-    add_executable(debug ${SOURCE_FILES})
+    add_executable(debug ${SOURCE_FILES} datasrc/assets/logo/logo.o)
 
     # Indicate where are all the header files
     target_include_directories(debug PRIVATE ${INCLUDE_DIRS})
@@ -66,7 +64,7 @@ endif()
 ################################ RELEASE ################################
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     # Create the executable from the sources files
-    add_executable(release ${SOURCE_FILES})
+    add_executable(release WIN32 ${SOURCE_FILES} datasrc/assets/logo/logo.o) # WIN32 indicate that we are building an app with a ui, not a terminal app (it will not open the terminal )
 
     # Indicate where are all the header files
     target_include_directories(release PRIVATE ${INCLUDE_DIRS})
@@ -78,10 +76,17 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     # Add compilation options
     target_compile_options(release PRIVATE -O3) # Optimize the program (takes longer to compile but runs faster)
 
-    # Remove the command line when running the program
-    set_target_properties(release PROPERTIES LINK_FLAGS "-mwindows")
-
     # Add some dll files inside the executable
     target_link_options(release PRIVATE -static -static-libstdc++ -static-libgcc)
 endif()
 ##########################################################################
+
+
+
+
+
+
+###############
+# Remove the command line when running the program
+#set_target_properties(release PROPERTIES LINK_FLAGS "-mwindows")
+

@@ -15,6 +15,10 @@ WindowManager::WindowManager(int width, int height, const char* title)
     GAME_HEIGHT = WINDOW_HEIGHT;
     MARGIN_X = 0;
     MARGIN_Y = 0;
+
+    // Window icon
+    Image icon = LoadImage("./assets/logo/logo.png"); 
+    SetWindowIcon(icon);
 }
 
 WindowManager::~WindowManager() {

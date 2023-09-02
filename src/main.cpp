@@ -5,7 +5,7 @@
 
 int main()
 {
-    WindowManager window = WindowManager(1366, 768, "bouncing-ball");
+    WindowManager window = WindowManager(1366, 768, "pong");
 
     Game game = Game(window);
     

@@ -17,13 +17,13 @@ void MenuState::OnEnter()
 
     // === Load textures ===
     // Main menu textures
-    _mainMenuTextures.push_back(LoadTexture("./textures/main-menu-0.png"));
-    _mainMenuTextures.push_back(LoadTexture("./textures/main-menu-1.png"));
-    _mainMenuTextures.push_back(LoadTexture("./textures/main-menu-2.png"));
+    _mainMenuTextures.push_back(LoadTexture("./assets/textures/main-menu-0.png"));
+    _mainMenuTextures.push_back(LoadTexture("./assets/textures/main-menu-1.png"));
+    _mainMenuTextures.push_back(LoadTexture("./assets/textures/main-menu-2.png"));
     // Settings textures
-    _settingsTextures.push_back(LoadTexture("./textures/settings-0.png"));
-    _settingsTextures.push_back(LoadTexture("./textures/settings-1.png"));
-    _settingsTextures.push_back(LoadTexture("./textures/settings-2.png"));
+    _settingsTextures.push_back(LoadTexture("./assets/textures/settings-0.png"));
+    _settingsTextures.push_back(LoadTexture("./assets/textures/settings-1.png"));
+    _settingsTextures.push_back(LoadTexture("./assets/textures/settings-2.png"));
 }
 
 void MenuState::OnExit()

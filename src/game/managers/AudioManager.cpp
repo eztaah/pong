@@ -5,7 +5,7 @@ AudioManager::AudioManager()
     : _backgroundMusic()
 {
     InitAudioDevice();  
-    _backgroundMusic = LoadMusicStream("./sounds/music.mp3");
+    _backgroundMusic = LoadMusicStream("./assets/sounds/music.mp3");
 }
 
 AudioManager::~AudioManager()

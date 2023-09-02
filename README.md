@@ -14,7 +14,7 @@ Built with the C++ programming language and the [Raylib](https://www.raylib.com/
 
 ## Download the game
 
-<a href="ttps://github.com/EzTaah/pong/releases/download/v1.1/pong-for-windows.zip"> <img src="https://github.com/EzTaah/pong/blob/main/docs/assets/windows.png?raw=true" height=70 hspace=1> </a>
+<a href="https://github.com/EzTaah/pong/releases/download/v1.1/pong-for-windows.zip"> <img src="https://github.com/EzTaah/pong/blob/main/docs/assets/windows.png?raw=true" height=70 hspace=1> </a>
 <br undefined>
 <br undefined>
 <br undefined>
